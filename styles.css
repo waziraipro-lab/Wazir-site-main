@@ -414,8 +414,27 @@ p {
     font-size: 1.2rem;
     color: var(--text-primary);
   }
-  .nav-toggle {
+    .nav-toggle {
     display: block;
+    z-index: 1002; /* ensure on top */
+    position: fixed;
+    top: calc(var(--header-height) + 0.5rem);
+    right: 1rem;
+  }
+
+  .scroll-indicator {
+    display: none; /* hide on mobile */
+  }
+
+  .apex-headline-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .apex-headline-row > div {
+    width: 100%;
   }
   .temple-columns-grid {
     display: flex;
@@ -426,9 +445,25 @@ p {
     width: 100%;
   }
   .pillar-shaft-title {
-    font-size: 1.2rem;
+    font-size: 1.75rem;
     color: var(--text-primary);
+    text-align: center;
+    margin-top: 0.5rem;
   }
+
+  .temple-pillar {
+    cursor: pointer;
+    padding: 0.5rem 0;
+  }
+
+  .scroll-indicator {
+    z-index: 1;
+  }
+
+.cases-grid {
+    grid-template-columns: 1fr;
+  }
+
 }
 
 .nav-toggle span {
