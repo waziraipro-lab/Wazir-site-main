@@ -1,0 +1,7 @@
+# Ignore node binary and npm modules
+node-v20.11.0-darwin-x64/
+node_modules/
+# OS files
+.DS_Store
+# Build artifacts
+dist/
