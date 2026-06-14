@@ -391,35 +391,14 @@ p {
 
 /* Mobile navigation and layout */
 @media (max-width: 768px) {
-  .nav {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: var(--header-height);
-    right: 0;
-    background: var(--bg-primary);
-    width: 70%;
-    height: calc(100vh - var(--header-height));
-    padding: 2rem;
-    overflow-y: auto;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    z-index: 999;
-  }
-  .nav.open {
-    transform: translateX(0);
-  }
   .nav-link {
     padding: 1rem 0;
     font-size: 1.2rem;
     color: var(--text-primary);
   }
-    .nav-toggle {
+  .nav-toggle {
     display: block;
     z-index: 1002; /* ensure on top */
-    position: fixed;
-    top: calc(var(--header-height) + 0.5rem);
-    right: 1rem;
   }
 
   .scroll-indicator {
@@ -435,6 +414,18 @@ p {
 
   .apex-headline-row > div {
     width: 100%;
+  }
+
+  .apex-timeline {
+    text-align: left;
+  }
+
+  .glass-card {
+    padding: 1.5rem;
+  }
+
+  .timeline-card {
+    padding: 1.5rem 1.2rem;
   }
   .temple-columns-grid {
     display: flex;
@@ -1962,6 +1953,111 @@ p {
 }
 
 /* ==========================================================================
+   PUBLIC RELATIONS SECTION
+   ========================================================================== */
+.pr-showcase {
+  padding: 8rem 0;
+  position: relative;
+}
+
+.pr-hero-row {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 4rem;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+
+.pr-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.pr-stat-card {
+  text-align: center;
+  padding: 1.75rem 1.25rem;
+  transition: var(--transition-smooth);
+}
+
+.pr-stat-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--brand-accent);
+  box-shadow: 0 12px 30px rgba(0, 229, 255, 0.08);
+}
+
+.pr-stat-number {
+  font-family: var(--font-header);
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 0.35rem;
+}
+
+.pr-stat-label {
+  font-family: var(--font-header);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.pr-stat-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.pr-activities-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.pr-activity-card {
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: var(--transition-smooth);
+}
+
+.pr-activity-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--brand-accent);
+  box-shadow: 0 15px 40px rgba(0, 229, 255, 0.08);
+}
+
+.pr-activity-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(0, 229, 255, 0.08);
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  transition: var(--transition-smooth);
+}
+
+.pr-activity-card:hover .pr-activity-icon {
+  background: rgba(0, 229, 255, 0.15);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.pr-activity-card h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.pr-activity-card p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
    TEAM SECTION
    ========================================================================== */
 .team {
@@ -2415,6 +2511,16 @@ p {
     gap: 4rem;
   }
   
+  .apex-headline-row {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .timeline-card {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
   .footer-grid {
     grid-template-columns: 1fr repeat(3, auto);
   }
@@ -2422,11 +2528,11 @@ p {
 
 @media (max-width: 768px) {
   .nav {
-    position: fixed;
-    top: var(--header-height);
+    position: absolute;
+    top: 100%;
     left: 0;
     width: 100%;
-    height: calc(100vh - var(--header-height));
+    height: calc(100vh - 100%);
     background: var(--bg-secondary);
     flex-direction: column;
     padding: 3rem 0;
@@ -2436,6 +2542,7 @@ p {
     transition: var(--transition-smooth);
     z-index: 999;
     border-top: 1px solid var(--border-color);
+    overflow-y: auto;
   }
   
   .nav.open {
