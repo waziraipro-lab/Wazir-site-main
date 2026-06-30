@@ -802,7 +802,7 @@ p {
 }
 
 .temple-container {
-  max-width: 960px;
+  max-width: 1100px;
   margin: 3.5rem auto 1rem;
   position: relative;
   display: flex;
@@ -814,8 +814,8 @@ p {
 .temple-roof {
   width: 100%;
   height: 0;
-  border-left: 480px solid transparent;
-  border-right: 480px solid transparent;
+  border-left: 550px solid transparent;
+  border-right: 550px solid transparent;
   border-bottom: 75px solid var(--bg-tertiary);
   position: relative;
   margin-bottom: 2px;
@@ -834,25 +834,11 @@ p {
 }
 
 .temple-roof-content {
-  position: absolute;
-  bottom: -45px;
-  transform: translateY(-50%);
-  font-family: var(--font-header);
-  font-size: 1.75rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  color: var(--text-primary);
-  text-align: center;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  display: none;
 }
 
 .temple-roof-content svg {
-  width: 24px;
-  height: 24px;
-  fill: var(--brand-accent);
+  display: none;
 }
 
 .temple-architrave {
@@ -900,7 +886,7 @@ p {
 }
 
 .pillar-shaft {
-  width: 68%;
+  width: 75%;
   flex-grow: 1;
   min-height: 240px;
   background: linear-gradient(90deg, 
@@ -915,7 +901,7 @@ p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1.5rem 0.5rem;
+  padding: 1.5rem 0.25rem;
   text-align: center;
   box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6);
   transition: var(--transition-smooth);
@@ -923,14 +909,16 @@ p {
 
 .pillar-shaft-title {
   font-family: var(--font-header);
-  font-size: 0.9rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   writing-mode: vertical-rl;
   text-orientation: mixed;
   color: var(--text-secondary);
   text-transform: uppercase;
   transition: var(--transition-fast);
+  word-break: keep-all;
+  overflow-wrap: normal;
 }
 
 .pillar-base {
@@ -2490,8 +2478,8 @@ p {
   }
   
   .temple-roof {
-    border-left-width: 380px;
-    border-right-width: 380px;
+    border-left-width: 420px;
+    border-right-width: 420px;
   }
   
   .temple-roof-content {
