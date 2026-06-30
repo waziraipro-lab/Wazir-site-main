@@ -2723,4 +2723,25 @@ p {
     gap: 1rem;
   }
 }
+/* ==============================
+   MOBILE - PR SECTION
+================================ */
 
+@media (max-width:768px){
+
+.pr-hero-row{
+    grid-template-columns:1fr;
+    gap:2rem;
+}
+
+.pr-stats-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:1rem;
+}
+
+.pr-activities-grid{
+    grid-template-columns:1fr;
+    gap:1.5rem;
+}
+
+}
