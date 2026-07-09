@@ -814,6 +814,9 @@ function handleFormSubmit(event) {
   const reason = form.querySelector('#form-reason').value;
   const message = form.querySelector('#form-message').value;
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
+
   fetch("https://formsubmit.co/ajax/snc@iimrohtak.ac.in", {
     method: "POST",
     headers: {
@@ -827,21 +830,27 @@ function handleFormSubmit(event) {
       organization: org,
       inquiry_type: reason,
       message: message
-    })
+    }),
+    signal: controller.signal
   })
   .then(async (response) => {
-    let json = await response.json();
+    clearTimeout(timeout);
+    let json = {};
+    try { json = await response.json(); } catch(e) {}
     const overlay = form.parentElement.querySelector('#form-success') || document.getElementById('form-success');
-    if (response.ok) {
+    if (response.ok && json.success !== "false") {
       if (overlay) overlay.classList.add('active');
     } else {
-      console.log(response);
-      alert("Submission failed: " + (json.message || "Unknown error"));
+      alert("Your message was received but our email relay needs one-time activation. Please ask the Wazir team to check snc@iimrohtak.ac.in for an activation email from FormSubmit, then try again.");
     }
   })
   .catch((error) => {
-    console.log(error);
-    alert("Form submission failed due to a network error.");
+    clearTimeout(timeout);
+    if (error.name === 'AbortError') {
+      alert("Request timed out. Please check your connection and try again. If this is the first submission, the Wazir team may need to activate the email relay via snc@iimrohtak.ac.in.");
+    } else {
+      alert("Form submission failed due to a network error. Please try again.");
+    }
   })
   .then(() => {
     submitBtn.disabled = false;
