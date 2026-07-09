@@ -394,9 +394,19 @@
             Looking for structured, data-driven strategy consulting for your high-growth organization? Share your business challenges, and our consultant teams will get back to you.
           </p>
 
-          <form id="clinic-intake-form" onsubmit="handleFormSubmit(event)" style="display: flex; flex-direction: column; gap: 1.5rem;">
-            <input type="hidden" id="form-reason" name="reason" value="APEX Consulting Project">
-            
+          <form
+            id="clinic-intake-form"
+            action="https://formsubmit.co/snc@iimrohtak.ac.in"
+            method="POST"
+            style="display: flex; flex-direction: column; gap: 1.5rem;"
+          >
+            <!-- FormSubmit hidden config -->
+            <input type="hidden" name="_next" value="https://wazir-site-main.vercel.app/apex/?success=1">
+            <input type="hidden" name="_subject" value="New APEX Consulting Inquiry — Wazir Website">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="box">
+            <input type="hidden" name="inquiry_type" value="APEX Consulting Project">
+
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
               <div class="form-group" style="display: flex; flex-direction: column; gap: 0.5rem;">
                 <label for="form-name" style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Contact Name</label>
@@ -421,18 +431,18 @@
 
             <div class="form-group" style="display: flex; flex-direction: column; gap: 0.5rem;">
               <label for="form-message" style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Business Challenge / Scope of Work</label>
-              <textarea id="form-message" name="scope" rows="4" placeholder="Briefly describe the strategic or functional problem you would like APEX to analyze." required style="padding: 0.75rem 1rem; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem; outline: none; transition: border-color 0.3s ease; resize: vertical; font-family: inherit;"></textarea>
+              <textarea id="form-message" name="message" rows="4" placeholder="Briefly describe the strategic or functional problem you would like APEX to analyze." required style="padding: 0.75rem 1rem; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem; outline: none; transition: border-color 0.3s ease; resize: vertical; font-family: inherit;"></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.9rem; font-weight: 700; margin-top: 1rem;">Submit Inquiry</button>
           </form>
 
-          <!-- Success Overlay -->
+          <!-- Success Overlay (shown via ?success=1 redirect) -->
           <div class="form-success-overlay" id="form-success">
             <div class="success-badge-icon">✓</div>
             <h3 class="text-gradient">Brief Submitted Successfully</h3>
             <p>Thank you for reaching out to Wazir. The APEX Consulting Clinic lead will review your business challenge brief and contact you within 3 business days.</p>
-            <button class="btn btn-secondary" style="margin-top: 1.5rem;" onclick="resetForm()">Submit Another Brief</button>
+            <button class="btn btn-secondary" style="margin-top: 1.5rem;" onclick="window.location.href='/apex/'">Submit Another Brief</button>
           </div>
         </div>
       </div>
@@ -492,5 +502,18 @@
   </footer>
 
   <script src="../app.js?v=3.2"></script>
+  <script>
+    // Show success overlay if redirected back after FormSubmit POST
+    if (new URLSearchParams(window.location.search).get('success') === '1') {
+      document.addEventListener('DOMContentLoaded', function() {
+        const overlay = document.getElementById('form-success');
+        const form = document.getElementById('clinic-intake-form');
+        if (overlay) overlay.classList.add('active');
+        if (form) form.style.display = 'none';
+        // Clean URL without reloading
+        history.replaceState({}, '', '/apex/');
+      });
+    }
+  </script>
 </body>
 </html>
