@@ -387,18 +387,31 @@
     <section class="apex-partner-section" style="padding: 6rem 0; border-top: 1px solid rgba(0, 229, 255, 0.06); background: var(--bg-secondary);">
       <div class="container" style="max-width: 700px;">
         <!-- White Glass Highlight Card -->
-        <div class="glass-card" style="padding: 3rem; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 24px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.02);">
+        <div class="glass-card" style="padding: 3rem; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 24px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.02); position: relative;">
           <span style="display: block; text-align: center; font-size: 0.8rem; font-family: var(--font-header); font-weight: 700; color: var(--brand-accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem;">Collaboration</span>
           <h2 class="section-title text-gradient" style="text-align: center; margin-bottom: 1rem; font-size: 2.2rem;">Connect with us for any consulting project</h2>
           <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; text-align: center; margin-bottom: 2.5rem; max-width: 540px; margin-left: auto; margin-right: auto;">
             Looking for structured, data-driven strategy consulting for your high-growth organization? Share your business challenges, and our consultant teams will get back to you.
           </p>
 
-          <form action="#" method="POST" style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <form id="clinic-intake-form" onsubmit="handleFormSubmit(event)" style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <input type="hidden" id="form-reason" name="reason" value="APEX Consulting Project">
+            
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
               <div class="form-group" style="display: flex; flex-direction: column; gap: 0.5rem;">
-                <label for="apex-client-name" style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Organization Name</label>
-                <input type="text" id="apex-client-name" name="organization" required style="padding: 0.75rem 1rem; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem; outline: none; transition: border-color 0.3s ease;">
+                <label for="form-name" style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Contact Name</label>
+                <input type="text" id="form-name" name="name" required placeholder="e.g. Rahul Gupta" style="padding: 0.75rem 1rem; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem; outline: none; transition: border-color 0.3s ease;">
+              </div>
+              <div class="form-group" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <label for="form-email" style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Contact Email</label>
+                <input type="email" id="form-email" name="email" required placeholder="e.g. rahul@company.com" style="padding: 0.75rem 1rem; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem; outline: none; transition: border-color 0.3s ease;">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+              <div class="form-group" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <label for="form-org" style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Organization Name</label>
+                <input type="text" id="form-org" name="organization" required placeholder="e.g. Gupta Logistics Pvt Ltd" style="padding: 0.75rem 1rem; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem; outline: none; transition: border-color 0.3s ease;">
               </div>
               <div class="form-group" style="display: flex; flex-direction: column; gap: 0.5rem;">
                 <label for="apex-client-industry" style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Industry / Sector</label>
@@ -407,17 +420,20 @@
             </div>
 
             <div class="form-group" style="display: flex; flex-direction: column; gap: 0.5rem;">
-              <label for="apex-client-email" style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Contact Email</label>
-              <input type="email" id="apex-client-email" name="email" required style="padding: 0.75rem 1rem; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem; outline: none; transition: border-color 0.3s ease;">
-            </div>
-
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 0.5rem;">
-              <label for="apex-client-scope" style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Business Challenge / Scope of Work</label>
-              <textarea id="apex-client-scope" name="scope" rows="4" placeholder="Briefly describe the strategic or functional problem you would like APEX to analyze." required style="padding: 0.75rem 1rem; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem; outline: none; transition: border-color 0.3s ease; resize: vertical; font-family: inherit;"></textarea>
+              <label for="form-message" style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Business Challenge / Scope of Work</label>
+              <textarea id="form-message" name="scope" rows="4" placeholder="Briefly describe the strategic or functional problem you would like APEX to analyze." required style="padding: 0.75rem 1rem; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem; outline: none; transition: border-color 0.3s ease; resize: vertical; font-family: inherit;"></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.9rem; font-weight: 700; margin-top: 1rem;">Submit Inquiry</button>
           </form>
+
+          <!-- Success Overlay -->
+          <div class="form-success-overlay" id="form-success">
+            <div class="success-badge-icon">✓</div>
+            <h3 class="text-gradient">Brief Submitted Successfully</h3>
+            <p>Thank you for reaching out to Wazir. The APEX Consulting Clinic lead will review your business challenge brief and contact you within 3 business days.</p>
+            <button class="btn btn-secondary" style="margin-top: 1.5rem;" onclick="resetForm()">Submit Another Brief</button>
+          </div>
         </div>
       </div>
     </section>
@@ -442,22 +458,22 @@
           <ul>
             <li><a href="../">Home</a></li>
             <li><a href="../about/">About Us</a></li>
-            <li><a href="../verticals/">Verticals</a></li>
-            <li><a href="../casebook/">Casebook</a></li>
-            <li><a href="../apex/">APEX Clinic</a></li>
-          </ul>
-        </div>
-        
-        <div class="footer-links-col">
-          <h4>Core Activities</h4>
-          <ul>
-            <li><a href="../events/">Events</a></li>
             <li><a href="../team/">Team</a></li>
             <li><a href="../partner/">Partner With Us</a></li>
           </ul>
         </div>
+        
         <div class="footer-links-col">
-          <h4>Institutional</h4>
+          <h4>Our Initiatives</h4>
+          <ul>
+            <li><a href="../verticals/">Verticals</a></li>
+            <li><a href="../casebook/">Casebook</a></li>
+            <li><a href="../apex/">APEX Clinic</a></li>
+            <li><a href="../events/">Events</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Other Links</h4>
           <ul>
             <li><a href="https://iimrohtak.ac.in" target="_blank">IIM Rohtak Official</a></li>
           </ul>
