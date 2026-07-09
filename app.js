@@ -176,13 +176,23 @@ function inspectVertical(id, clickedEl) {
   const data = verticalsData[id];
   if (!data) return;
 
-  // Highlight selected pillar
+  // Highlight selected pillar or architrave
   const pillars = document.querySelectorAll('.temple-pillar');
+  const architrave = document.querySelector('.temple-architrave');
+  
   pillars.forEach(p => p.classList.remove('active'));
+  if (architrave) architrave.classList.remove('active');
 
-  // Find the clicked pillar element
-  const clickedPillar = clickedEl || Array.from(pillars).find(p => p.getAttribute('onclick') && p.getAttribute('onclick').includes(id));
-  if (clickedPillar) clickedPillar.classList.add('active');
+  // Find the clicked element
+  let clickedTarget = clickedEl;
+  if (!clickedTarget) {
+    if (id === 'pr') {
+      clickedTarget = architrave;
+    } else {
+      clickedTarget = Array.from(pillars).find(p => p.getAttribute('onclick') && p.getAttribute('onclick').includes(id));
+    }
+  }
+  if (clickedTarget) clickedTarget.classList.add('active');
 
   // Format bullets HTML
   let bulletsHtml = '';

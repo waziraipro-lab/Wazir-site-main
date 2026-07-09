@@ -951,12 +951,27 @@ p {
   color: var(--brand-accent);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.temple-architrave:hover {
+  border-color: rgba(0, 229, 255, 0.4);
+  background: linear-gradient(90deg, rgba(0, 229, 255, 0.05), var(--brand-blue), rgba(0, 229, 255, 0.05));
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.15);
+}
+
+.temple-architrave.active {
+  border-color: rgba(0, 229, 255, 0.6);
+  border-bottom-color: var(--brand-accent);
+  background: linear-gradient(90deg, rgba(0, 229, 255, 0.1), var(--brand-blue), rgba(0, 229, 255, 0.1));
+  box-shadow: 0 0 25px rgba(0, 229, 255, 0.3);
 }
 
 .temple-columns-grid {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 0.75rem;
   padding: 1.5rem 0.75rem;
   background: rgba(6, 20, 39, 0.4);
@@ -2629,8 +2644,23 @@ p {
   }
   
   /* House of Wazir Temple Mobile Stacking */
-  .temple-roof, .temple-architrave, .temple-stylobate, .pillar-cap, .pillar-base {
+  .temple-roof, .temple-stylobate, .pillar-cap, .pillar-base {
     display: none;
+  }
+  .temple-architrave {
+    display: block !important;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    padding: 2rem 1.5rem !important;
+    border-radius: 12px !important;
+    background: var(--bg-tertiary) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-bottom: 3px solid var(--brand-accent) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.3rem !important;
+    letter-spacing: 0.1em !important;
   }
   .temple-columns-grid {
     grid-template-columns: 1fr;
