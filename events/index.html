@@ -249,24 +249,9 @@
     }
 
     .gallery-card-caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: linear-gradient(to top, rgba(3, 10, 22, 0.95) 0%, rgba(3, 10, 22, 0.7) 60%, transparent 100%);
-      color: var(--text-primary);
-      padding: 2.5rem 1.5rem 1.5rem;
-      font-family: var(--font-header);
-      text-align: left;
-      font-size: 0.95rem;
-      font-weight: 600;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      display: none;
     }
 
-    .gallery-card.active .gallery-card-caption {
-      opacity: 1;
-    }
 
     /* Controls */
     .gallery-controls {
@@ -697,8 +682,7 @@
         card.setAttribute("onclick", `selectCard(${index})`);
         
         card.innerHTML = `
-          <img src="${item.src}" alt="${item.caption}">
-          <div class="gallery-card-caption">${item.caption}</div>
+          <img src="${item.src}" alt="Event photo">
         `;
         
         viewport.appendChild(card);
