@@ -814,23 +814,28 @@ function handleFormSubmit(event) {
   const reason = form.querySelector('#form-reason').value;
   const message = form.querySelector('#form-message').value;
 
+  const industry = form.querySelector('#apex-client-industry') ? form.querySelector('#apex-client-industry').value : '';
+
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 15000);
+
+  const params = new URLSearchParams();
+  params.append('name', name);
+  params.append('email', email);
+  params.append('subject', `New Wazir Website Collaboration Brief: ${org}`);
+  params.append('organization', org);
+  params.append('inquiry_type', reason);
+  if (industry) params.append('industry', industry);
+  params.append('message', message);
+  params.append('_captcha', 'false');
 
   fetch("https://formsubmit.co/ajax/snc@iimrohtak.ac.in", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
       "Accept": "application/json"
     },
-    body: JSON.stringify({
-      name: name,
-      email: email,
-      subject: `New Wazir Website Collaboration Brief: ${org}`,
-      organization: org,
-      inquiry_type: reason,
-      message: message
-    }),
+    body: params.toString(),
     signal: controller.signal
   })
   .then(async (response) => {
@@ -841,18 +846,18 @@ function handleFormSubmit(event) {
     if (response.ok && json.success !== "false") {
       if (overlay) overlay.classList.add('active');
     } else {
-      alert("Your message was received but our email relay needs one-time activation. Please ask the Wazir team to check snc@iimrohtak.ac.in for an activation email from FormSubmit, then try again.");
+      alert("Submission failed: " + (json.message || "Please try again or email snc@iimrohtak.ac.in directly."));
     }
   })
   .catch((error) => {
     clearTimeout(timeout);
     if (error.name === 'AbortError') {
-      alert("Request timed out. Please check your connection and try again. If this is the first submission, the Wazir team may need to activate the email relay via snc@iimrohtak.ac.in.");
+      alert("Request timed out. Please check your connection and try again.");
     } else {
-      alert("Form submission failed due to a network error. Please try again.");
+      alert("Form submission failed. Please try again or email snc@iimrohtak.ac.in directly.");
     }
   })
-  .then(() => {
+  .finally(() => {
     submitBtn.disabled = false;
     submitBtn.innerHTML = originalText;
   });
