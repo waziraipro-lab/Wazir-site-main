@@ -144,8 +144,7 @@ const verticalsData = {
     desc: "Managing national case challenges and strategy hackathons. We partner with top hosting platforms to drive massive student engagement and corporate visibility.",
     bullets: [
       { title: "Consultant of the Year (COTY)", text: "Our flagship intra-college crucible, with 9 editions conducted." },
-      { title: "Legacy Events", text: "Director's Roundtable 2.0, The Consulting Carousel, and Impostors Gambit." },
-      { title: "Passion Events", text: "Cinematic Seconds, Product Playground, Stratlyst, and Prodthink Quest." },
+      { title: "Passion Events", text: "Director's Roundtable 2.0, Impostors Gambit, The Consulting Carousel, Product Playground, and Cinematic Seconds." },
       { title: "Scale & Outreach", text: "1M+ impressions, 24,000+ registrations, and 100+ national level competitions." }
     ]
   },
