@@ -162,7 +162,7 @@ const verticalsData = {
   'pr': {
     title: 'Public Relations Vertical',
     subtitle: "Visibility is strategy. If the world doesn't see you, you don't exist.",
-    desc: "The PR vertical is the 'Mother of Verticals' — the connective tissue that amplifies every initiative across Wazir. From LinkedIn thought-leadership to Instagram engagement, we craft narratives that position Wazir as a national consulting brand.",
+    desc: "The PR vertical is the 'Mother of all verticals' — the connective tissue that amplifies every initiative across Wazir. From LinkedIn thought-leadership to Instagram engagement, we craft narratives that position Wazir as a national consulting brand.",
     bullets: [
       { title: "Social Media Strategy", text: "End-to-end content calendar management across LinkedIn, Instagram, and campus channels with 1M+ cumulative impressions." },
       { title: "Brand Identity & Design", text: "Crafting a cohesive visual identity — from event posters and casebook covers to digital templates and merchandise." },
