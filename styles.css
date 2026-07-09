@@ -147,15 +147,8 @@ p {
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 1.5rem; /* Default padding */
+  padding: 0 1.5rem;
   position: relative;
-}
-
-/* Add this to force extra breathing room on mobile */
-@media (max-width: 768px) {
-  .container {
-    padding: 0 1.25rem; /* Adjust if it still feels too tight */
-  }
 }
 
 .text-gradient {
@@ -188,9 +181,7 @@ p {
   text-align: center;
   margin-bottom: 1rem;
   position: relative;
-  display: inline-block;
-  left: 50%;
-  transform: translateX(-50%);
+  display: block;
 }
 
 .section-title::after {
@@ -343,6 +334,14 @@ p {
   filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.4));
 }
 
+.nav-logo-img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.2));
+  border-radius: 50%;
+}
+
 .logo span {
   font-weight: 300;
   color: var(--text-muted);
@@ -384,10 +383,13 @@ p {
 
 .nav-link.active {
   color: var(--text-primary);
+  border-bottom: 2px solid var(--brand-accent);
+  box-shadow: 0 4px 12px rgba(0, 229, 255, 0.2);
+  padding-bottom: 0.4rem;
 }
 
 .nav-link.active::after {
-  width: 100%;
+  width: 0;
 }
 
 .nav-toggle {
@@ -406,15 +408,37 @@ p {
     padding: 1rem 0;
     font-size: 1.2rem;
     color: var(--text-primary);
+    background: none;
+    border: none;
+    border-radius: 0;
+  }
+  .nav-link.active {
+    color: var(--brand-accent);
+    background: none;
+    border: none;
+    border-bottom: none;
+    padding: 1rem 0;
   }
   .nav-toggle {
     display: block;
     z-index: 1002; /* ensure on top */
   }
-
-  .scroll-indicator {
-    display: none; /* hide on mobile */
+  .hero {
+    padding-top: calc(var(--header-height) + 40px);
+    padding-bottom: 3rem;
+    align-items: flex-start;
+    min-height: auto;
   }
+  .hero-logo-big {
+    display: none;
+  }
+  .hero-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+
 
   .apex-headline-row {
     display: flex;
@@ -458,9 +482,7 @@ p {
     padding: 0.5rem 0;
   }
 
-  .scroll-indicator {
-    z-index: 1;
-  }
+
 
 .cases-grid {
     grid-template-columns: 1fr;
@@ -538,11 +560,26 @@ p {
   box-shadow: 0 0 15px rgba(0, 229, 255, 0.05);
 }
 
+.hero-title-row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.hero-logo-big {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.4));
+  flex-shrink: 0;
+}
+
 .hero-title {
   font-size: 5.5rem;
   line-height: 0.9;
   font-weight: 800;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0;
 }
 
 .hero-tagline {
@@ -920,7 +957,7 @@ p {
 
 .pillar-shaft-title {
   font-family: var(--font-header);
-  font-size: 0.78rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   writing-mode: vertical-rl;
@@ -1270,16 +1307,21 @@ p {
 }
 
 .book-container {
-  width: 250px;
-  height: 350px;
+  width: 356px;
+  height: 200px;
   position: relative;
   transform-style: preserve-3d;
   transform: rotateY(-15deg) rotateX(5deg);
   transition: var(--transition-smooth);
+  cursor: pointer;
 }
 
 .book-container:hover {
-  transform: rotateY(-5deg) rotateX(5deg) scale(1.03);
+  transform: rotateY(-5deg) rotateX(8deg) scale(1.06) translateY(-10px);
+}
+
+.book-container:hover .book-cover {
+  box-shadow: 20px 20px 40px rgba(0,0,0,0.7), 0 0 40px rgba(0, 229, 255, 0.3), 0 0 80px rgba(0, 229, 255, 0.1);
 }
 
 .book-cover {
@@ -1288,16 +1330,10 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--brand-blue) 100%);
-  border: 1px solid rgba(0, 229, 255, 0.2);
-  border-left: 8px solid var(--brand-accent);
   border-radius: 0 8px 8px 0;
   box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.6);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 2.2rem 1.5rem;
   z-index: 10;
+  overflow: hidden;
 }
 
 .book-tagline {
@@ -1896,6 +1932,8 @@ p {
   font-size: 0.9rem;
   margin-bottom: 1.5rem;
 }
+
+
 
 .event-partners-scroller {
   margin-top: 5rem;
@@ -2499,9 +2537,18 @@ p {
   .footer-grid {
     grid-template-columns: 1fr repeat(3, auto);
   }
+  .pr-activities-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+  .scroll-indicator {
+    display: none !important;
+  }
   .nav {
     position: absolute;
     top: 100%;
@@ -2557,7 +2604,7 @@ p {
   }
   .pillar-shaft-title {
     writing-mode: horizontal-tb;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     margin-bottom: 0.5rem;
     color: var(--brand-accent);
   }
@@ -2622,6 +2669,41 @@ p {
     gap: 1.5rem;
     text-align: center;
   }
+  
+  /* PR Section Mobile Layout */
+  .pr-showcase {
+    padding: 5rem 0;
+  }
+  .pr-hero-row {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .pr-stats-grid {
+    gap: 1.25rem;
+  }
+  .pr-activities-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  /* Mobile Collapsible Sections to reduce height */
+  .cases-toggle-row, .team-toggle-row {
+    display: block !important;
+  }
+  .case-study-card.mobile-hidden, .team-card.mobile-hidden {
+    display: none !important;
+  }
+
+  /* Section padding and typography height reductions */
+  section, .pr-showcase, .apex-clinic-showcase, .hub, .events, .team, .contact {
+    padding: 4rem 0 !important;
+  }
+  .section-title {
+    margin-bottom: 0.75rem !important;
+  }
+  .section-subtitle {
+    margin-bottom: 2rem !important;
+  }
 }
 
 /* Additional Mobile Enhancements */
@@ -2685,7 +2767,7 @@ p {
   }
   .pillar-shaft-title {
     writing-mode: horizontal-tb;
-    font-size: 1rem;
+    font-size: 1.2rem;
     margin-bottom: 0.5rem;
     color: var(--brand-accent);
     text-shadow: 0 0 5px rgba(0,229,255,0.4);
@@ -2702,25 +2784,23 @@ p {
     flex-direction: column;
     gap: 1rem;
   }
+  .pr-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .pr-activities-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .pr-activity-card {
+    padding: 1.5rem 1.25rem;
+  }
+  .pr-stat-card {
+    padding: 1.5rem 1.25rem;
+  }
+  .book-container {
+    width: 280px !important;
+    height: 175px !important;
+  }
 }
-/* ==============================
-   MOBILE - PR SECTION
-================================ */
 
-@media (max-width:768px){
-
-.pr-hero-row{
-    grid-template-columns:1fr;
-    gap:2rem;
-}
-
-.pr-stats-grid{
-    grid-template-columns:repeat(2,1fr);
-    gap:1rem;
-}
-
-.pr-activities-grid{
-    grid-template-columns:1fr;
-    gap:1.5rem;
-}
-}

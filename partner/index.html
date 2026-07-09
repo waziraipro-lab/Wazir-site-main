@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partner With Us | Wazir IIM Rohtak</title>
+  <link rel="stylesheet" href="../styles.css?v=3.2">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== -->
+  <header class="header" id="header">
+    <div class="container">
+      <a href="../" class="logo">
+        <img src="../wazir-logo.png" alt="Wazir Logo" class="nav-logo-img">
+        WAZIR<span>IIMR</span>
+      </a>
+            <nav class="nav" id="nav-menu">
+        <a href="../" class="nav-link">Home</a>
+        <a href="../about/" class="nav-link">About</a>
+        <a href="../verticals/" class="nav-link">Verticals</a>
+        <a href="../casebook/" class="nav-link">Casebook</a>
+        <a href="../apex/" class="nav-link">APEX</a>
+        <a href="../events/" class="nav-link">Events</a>
+        <a href="../team/" class="nav-link">Team</a>
+        <a href="../partner/" class="nav-link active">Partner With Us</a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main style="padding-top: 80px;">
+    <!-- Hero -->
+    <section class="contact-hero" style="padding: 6rem 0 4rem; text-align: center; background: radial-gradient(circle at top, rgba(0, 229, 255, 0.05) 0%, transparent 70%);">
+      <div class="container">
+        <span class="hero-club-badge">Get In Touch</span>
+        <h1 class="section-title text-gradient" style="font-size: 3.5rem; margin-top: 1rem; text-align: center;">Partner With Us</h1>
+        <p class="section-subtitle" style="max-width: 600px; margin: 1rem auto 0; text-align: center;">
+          Reach out for corporate collaborations, pro-bono consulting clinic projects, or sponsorship briefings.
+        </p>
+      </div>
+    </section>
+
+    <!-- Main Contact Grid -->
+    <section class="contact-sec" style="padding: 4rem 0 6rem;">
+      <div class="container">
+        <div class="contact-layout glass-card">
+          
+          <!-- Contact Info -->
+          <div class="contact-info">
+            <h3 style="font-family: var(--font-header); font-size: 2rem; color: var(--text-primary); margin-bottom: 2rem;">Wazir SNC IIM Rohtak</h3>
+            
+            <div style="display: flex; flex-direction: column; gap: 2rem;">
+              <div style="display: flex; gap: 1.5rem; align-items: flex-start;">
+                <div style="font-size: 1.8rem; color: var(--brand-accent);">✉️</div>
+                <div>
+                  <h4 style="font-family: var(--font-header); font-size: 1.15rem; color: var(--text-primary);">Email Address</h4>
+                  <p style="color: var(--text-secondary); margin-top: 0.25rem;"><a href="mailto:snc@iimrohtak.ac.in" style="color: inherit;">snc@iimrohtak.ac.in</a></p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1.5rem; align-items: flex-start;">
+                <div style="font-size: 1.8rem; color: var(--brand-accent);">📍</div>
+                <div>
+                  <h4 style="font-family: var(--font-header); font-size: 1.15rem; color: var(--text-primary);">Campus Location</h4>
+                  <p style="color: var(--text-secondary); margin-top: 0.25rem; line-height: 1.5;">
+                    Indian Institute of Management Rohtak,<br>
+                    NH-10, Southern Bypass, Sunaria, Rohtak, Haryana 124010
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div style="margin-top: 2rem;">
+              <span class="motto-script" style="font-size: 1.8rem;">Dare to think?</span>
+              <p style="font-size: 0.95rem; font-weight: 400; color: var(--text-accent);">Then here is where you belong!</p>
+            </div>
+          </div>
+
+          <!-- Contact Form Container -->
+          <div class="contact-form-container" style="position: relative;">
+            <form id="clinic-intake-form" onsubmit="handleFormSubmit(event)">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="form-name">Contact Person Name</label>
+                  <input type="text" id="form-name" name="name" class="form-input" placeholder="e.g. Rahul Gupta" required>
+                </div>
+                <div class="form-group">
+                  <label for="form-email">Email Address</label>
+                  <input type="email" id="form-email" name="email" class="form-input" placeholder="e.g. rahul@company.com" required>
+                </div>
+                <div class="form-group">
+                  <label for="form-org">Organization/Company</label>
+                  <input type="text" id="form-org" name="organization" class="form-input" placeholder="e.g. Gupta Logistics Pvt Ltd" required>
+                </div>
+                <div class="form-group">
+                  <label for="form-reason">Collaboration Area</label>
+                  <select id="form-reason" name="inquiry_type" class="form-select" required>
+                    <option value="" disabled selected>Select Inquiry Type</option>
+                    <option value="clinic">Pro-bono Project (Consulting Clinic)</option>
+                    <option value="knowledge">Knowledge/Guest Session Coordination</option>
+                    <option value="sponsorship">Event Sponsorship (COTY / Chakravyuh)</option>
+                    <option value="other">General Query</option>
+                  </select>
+                </div>
+                <div class="form-group form-group-full">
+                  <label for="form-message">Brief Description of the Business Challenge</label>
+                  <textarea id="form-message" name="message" class="form-textarea" placeholder="Explain the context or operations pain point you want the Wazir Student Consultant teams to analyze..." required></textarea>
+                </div>
+              </div>
+              <div class="form-submit-row">
+                <button type="submit" class="btn btn-primary">Submit Brief</button>
+              </div>
+            </form>
+            
+            <!-- Success Overlay -->
+            <div class="form-success-overlay" id="form-success">
+              <div class="success-badge-icon">✓</div>
+              <h3 class="text-gradient">Brief Submitted Successfully</h3>
+              <p>Thank you for reaching out to Wazir. The Consulting Clinic operations lead will review your brief and get in touch within 3 business days.</p>
+              <button class="btn btn-secondary" style="margin-top: 1.5rem;" onclick="resetForm()">Submit Another Brief</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <a href="../" class="logo" style="margin-bottom: 1.5rem;">
+            <img src="../wazir-logo.png" alt="Wazir Logo" class="nav-logo-img">
+            WAZIR<span>IIMR</span>
+          </a>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 2rem;">
+            Strategy & Consulting Club of IIM Rohtak. Scale up consulting culture on campus.
+          </p>
+        </div>
+        
+                        <div class="footer-links-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="../">Home</a></li>
+            <li><a href="../about/">About Us</a></li>
+            <li><a href="../verticals/">Verticals</a></li>
+            <li><a href="../casebook/">Casebook</a></li>
+            <li><a href="../apex/">APEX Clinic</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-links-col">
+          <h4>Core Activities</h4>
+          <ul>
+            <li><a href="../events/">Events</a></li>
+            <li><a href="../team/">Team</a></li>
+            <li><a href="../partner/">Partner With Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>External Links</h4>
+          <ul>
+            <li><a href="https://www.linkedin.com/company/wazir-snc-iimrohtak/posts/?feedView=all" target="_blank">LinkedIn Page</a></li>
+            <li><a href="https://www.instagram.com/wazir_iimrohtak/" target="_blank">Instagram</a></li>
+            <li><a href="https://iimrohtak.ac.in" target="_blank">IIM Rohtak Official</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <div class="footer-copyright" style="text-align: center;">
+          © 2026 Wazir SNC IIM Rohtak. All rights reserved.
+        </div>
+        <div class="footer-socials">
+          <a href="https://www.linkedin.com/company/wazir-snc-iimrohtak/posts/?feedView=all" class="footer-social-link" target="_blank">LinkedIn</a>
+          <a href="https://www.instagram.com/wazir_iimrohtak/" class="footer-social-link" target="_blank">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../app.js?v=3.2"></script>
+</body>
+</html>

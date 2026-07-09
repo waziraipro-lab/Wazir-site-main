@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APEX Consulting Clinic | Wazir IIM Rohtak</title>
+  <meta name="description" content="Explore APEX, the pro bono consulting clinic of Wazir IIM Rohtak. Access our Annual Report 2026 and read case studies with Ministry of AYUSH, W2 Consulting, Niteouts, and more.">
+  <link rel="stylesheet" href="../styles.css?v=3.2">
+  <style>
+    .apex-hero-section {
+      padding: 6rem 0;
+      background: radial-gradient(circle at top, rgba(0, 229, 255, 0.05) 0%, transparent 70%);
+    }
+
+    /* Portrait Book Mockup Styling */
+    .portrait-book-mockup {
+      display: flex;
+      justify-content: center;
+      perspective: 1000px;
+    }
+
+    .portrait-book-container {
+      width: 220px;
+      height: 310px;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateY(-18deg) rotateX(6deg);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+
+    .portrait-book-container:hover {
+      transform: rotateY(-6deg) rotateX(8deg) scale(1.05) translateY(-8px);
+    }
+
+    .portrait-book-cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 4px 10px 10px 4px;
+      box-shadow: 12px 12px 25px rgba(0, 0, 0, 0.5);
+      z-index: 10;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .portrait-book-container:hover .portrait-book-cover {
+      box-shadow: 20px 20px 40px rgba(0,0,0,0.7), 0 0 40px rgba(0, 229, 255, 0.35), 0 0 80px rgba(0, 229, 255, 0.12);
+    }
+
+    /* Spine effect on cover left */
+    .portrait-book-cover::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 8px;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border-right: 1px solid rgba(0, 0, 0, 0.3);
+      z-index: 12;
+    }
+
+    .portrait-book-pages {
+      position: absolute;
+      top: 4px;
+      right: -6px;
+      width: 100%;
+      height: 97%;
+      background: #f1f5f9;
+      border-radius: 0 8px 8px 0;
+      box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
+      z-index: 5;
+      border-right: 1px solid rgba(0,0,0,0.05);
+    }
+
+    /* Cover Graphic Styling */
+    .cover-top {
+      text-align: left;
+    }
+
+    .cover-badge {
+      font-family: var(--font-header);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--brand-accent);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .cover-title {
+      font-family: var(--font-header);
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1;
+      color: #fff;
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.01em;
+    }
+
+    .cover-subtitle {
+      font-family: var(--font-header);
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .cover-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 0.75rem;
+      text-align: left;
+    }
+
+    .cover-year {
+      font-family: var(--font-header);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .cover-club {
+      font-size: 0.5rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: 0.1rem;
+    }
+
+    /* Client Logo Badges */
+    .client-logo-container {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(0, 229, 255, 0.08);
+      border-radius: 50%;
+      margin-bottom: 1.5rem;
+      transition: var(--transition-smooth);
+    }
+
+    .case-study-card:hover .client-logo-container {
+      background: rgba(0, 229, 255, 0.04);
+      border-color: rgba(0, 229, 255, 0.25);
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
+    }
+
+    .client-logo-svg {
+      width: 32px;
+      height: 32px;
+      fill: var(--brand-accent);
+      color: var(--brand-accent);
+    }
+
+    /* Client Engagement Section styling */
+    .client-section {
+      padding: 6rem 0;
+      background: var(--bg-secondary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & NAVIGATION -->
+  <header class="header" id="header">
+    <div class="container">
+      <a href="../" class="logo">
+        <img src="../wazir-logo.png" alt="Wazir Logo" class="nav-logo-img">
+        WAZIR<span>IIMR</span>
+      </a>
+      <nav class="nav" id="nav-menu">
+        <a href="../" class="nav-link">Home</a>
+        <a href="../about/" class="nav-link">About</a>
+        <a href="../verticals/" class="nav-link">Verticals</a>
+        <a href="../casebook/" class="nav-link">Casebook</a>
+        <a href="./" class="nav-link active">APEX</a>
+        <a href="../events/" class="nav-link">Events</a>
+        <a href="../team/" class="nav-link">Team</a>
+        <a href="../partner/" class="nav-link">Partner With Us</a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main style="padding-top: 80px;">
+
+    <!-- Showcase Section -->
+    <section class="apex-hero-section">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 4rem; align-items: center;">
+          
+          <!-- Mockup Visual -->
+          <div class="portrait-book-mockup">
+            <div class="portrait-book-container">
+              <div class="portrait-book-cover" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 4px 10px 10px 4px; box-shadow: 12px 12px 25px rgba(0, 0, 0, 0.5); z-index: 10; overflow: hidden; padding: 0;">
+                <img src="../APEX_Coverpage.png" alt="APEX Report 2026 Cover" style="width: 100%; height: 100%; object-fit: fill; border-radius: 4px 10px 10px 4px;">
+              </div>
+              <div class="portrait-book-pages"></div>
+            </div>
+          </div>
+
+          <!-- Description & CTA -->
+          <div class="apex-info">
+            <span class="hero-club-badge">APEX Consulting Clinic</span>
+            <h1 style="font-family: var(--font-header); font-size: 2.8rem; font-weight: 800; color: var(--text-primary); margin: 1rem 0 1.5rem; line-height: 1.1;">
+              APEX Report 2026
+            </h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.7; margin-bottom: 2rem;">
+              Capture the journey, learning, and business impact of APEX — the pro-bono consulting clinic of Wazir IIM Rohtak. This report documents structured advisory engagements across corporate spinoff listings, expo technology SaaS, GTM frameworks, and strategic scale-ups.
+            </p>
+            <a href="../APEX_Report_2026.pdf" download="APEX_Report_2026.pdf" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.8rem;">
+              <svg style="width:18px; height:18px; fill:currentColor;" viewBox="0 0 24 24"><path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/></svg>
+              Download Report (PDF)
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- APEX Journey Section -->
+    <section class="apex-journey-section" style="padding: 6rem 0; border-top: 1px solid rgba(0, 229, 255, 0.06); background: var(--bg-primary);">
+      <div class="container" style="max-width: 800px;">
+        <h2 class="section-title text-gradient" style="text-align: center; margin-bottom: 1rem;">The APEX Journey</h2>
+        <p class="section-subtitle" style="text-align: center; margin-bottom: 4rem;">Fostering pro-bono consulting excellence over the years.</p>
+        
+        <div class="glass-card timeline-card" style="padding: 3rem; border: 1px solid rgba(0, 229, 255, 0.1);">
+          <div class="apex-timeline">
+            <div class="timeline-step">
+              <div class="timeline-year">2022 - 2023</div>
+              <div class="timeline-title">Crafting the Vision</div>
+              <div class="timeline-desc">Establishing methodologies and internal frameworks.</div>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-year">2023 - 2024</div>
+              <div class="timeline-title">Onboarding Local Clients</div>
+              <div class="timeline-desc">Serving SMEs in Haryana and neighboring areas.</div>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-year">2024 - 2025</div>
+              <div class="timeline-title">Expanding Footprint</div>
+              <div class="timeline-desc">Assisting clients and organizations nationwide.</div>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-year">2025 - 2026</div>
+              <div class="timeline-title">Scaling &amp; Spinoffs</div>
+              <div class="timeline-desc">Analyzing complex corporate spinoff structures and piloting B2B SaaS strategies.</div>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-year">2026 - 2027</div>
+              <div class="timeline-title">The Vision Ahead</div>
+              <div class="timeline-desc">Pioneering data-driven casing methodology and deepening high-impact pro-bono client advisory.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Client Engagements Grid Section -->
+    <section class="client-section">
+      <div class="container">
+        <h2 class="section-title text-gradient" style="text-align: center; margin-bottom: 1rem;">Client Engagements</h2>
+        <p class="section-subtitle" style="text-align: center; margin-bottom: 4rem;">Scaling real-world impact across public, private, and high-growth sectors.</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem;">
+          
+          <!-- Client 1: W2 Consulting (NEW) -->
+          <div class="case-study-card glass-card" style="padding: 2.5rem;">
+            <div class="client-logo-container">
+              <!-- Custom Typographic Logo W2 -->
+              <svg class="client-logo-svg" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12 4L10.5 8.5L9 4H7L9.5 11.5L8 16H9.5L11 11.5L12.5 16H14L15.5 11.5L17 16H18.5L17 11.5L19.5 4H17.5L16 8.5L14.5 4H12.5M4 19H20V21H4V19Z"/>
+              </svg>
+            </div>
+            <div class="case-study-meta">
+              <span class="case-study-tag">M&amp;A / Strategy</span>
+              <span class="case-study-industry">Mumbai</span>
+            </div>
+            <h3 style="font-family: var(--font-header); font-size: 1.4rem; color: var(--text-primary); margin: 0.5rem 0 1rem;">W2 Consulting</h3>
+            <p class="case-study-problem" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 1.5rem;">
+              <strong>Business Problem:</strong> Strategic advisory and analysis of 30 Indian corporate spinoff listings to examine listing delays and evaluate impacts on parent returns.
+            </p>
+            <p class="case-study-quote" style="font-style: italic; font-size: 0.85rem; color: var(--text-muted); border-left: 2px solid var(--brand-accent); padding-left: 1rem;">
+              "Their smart questions and data choices made our analysis of 30 spinoffs shine, revealing how listing delays affect parent returns. Impressive work!"
+            </p>
+          </div>
+
+          <!-- Client 2: Niteouts (NEW) -->
+          <div class="case-study-card glass-card" style="padding: 2.5rem;">
+            <div class="client-logo-container">
+              <!-- Custom Moon & Star Event Logo -->
+              <svg class="client-logo-svg" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2M12 20A8 8 0 1 1 20 12A8 8 0 0 1 12 20M12 6A6 6 0 0 0 6 12A6 6 0 0 0 12 18A6 6 0 0 0 18 12A6 6 0 0 0 12 6M12 16A4 4 0 1 1 16 12A4 4 0 0 1 12 16M14 9.5A1.5 1.5 0 1 1 12.5 8A1.5 1.5 0 0 1 14 9.5Z"/>
+              </svg>
+            </div>
+            <div class="case-study-meta">
+              <span class="case-study-tag">SaaS / Events</span>
+              <span class="case-study-industry">New Delhi</span>
+            </div>
+            <h3 style="font-family: var(--font-header); font-size: 1.4rem; color: var(--text-primary); margin: 0.5rem 0 1rem;">Niteouts Events &amp; Ent.</h3>
+            <p class="case-study-problem" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 1.5rem;">
+              <strong>Business Problem:</strong> Market viability and go-to-market model formulation for an experiential B2B expo technology SaaS pilot.
+            </p>
+            <p class="case-study-quote" style="font-style: italic; font-size: 0.85rem; color: var(--text-muted); border-left: 2px solid var(--brand-accent); padding-left: 1rem;">
+              "Their structured approach and thorough analysis helped us better understand the market landscape. Actionable insights and strong capabilities."
+            </p>
+          </div>
+
+          <!-- Client 3: AYUSHEXCIL -->
+          <div class="case-study-card glass-card" style="padding: 2.5rem;">
+            <div class="client-logo-container">
+              <!-- Custom Sanskrit Seal SVG Logo -->
+              <svg class="client-logo-svg" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12S6.48 22 12 22 22 17.52 22 12 17.52 2 12 2M12 20C7.59 20 4 16.41 4 12S7.59 4 12 4 20 7.59 20 12 16.41 20 12 20M12 6C8.69 6 6 8.69 6 12S8.69 18 12 18 18 15.31 18 12 15.31 6 12 6M12 16C9.79 16 8 14.21 8 12S9.79 8 12 8 16 9.79 16 12 14.21 16 12 16Z"/>
+              </svg>
+            </div>
+            <div class="case-study-meta">
+              <span class="case-study-tag">Govt / Pharma</span>
+              <span class="case-study-industry">New Delhi</span>
+            </div>
+            <h3 style="font-family: var(--font-header); font-size: 1.4rem; color: var(--text-primary); margin: 0.5rem 0 1rem;">AYUSHEXCIL</h3>
+            <p class="case-study-problem" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 1.5rem;">
+              <strong>Business Problem:</strong> Structural optimization and content editorial design of the export promotion annual report under the Ministry of AYUSH.
+            </p>
+            <p class="case-study-quote" style="font-style: italic; font-size: 0.85rem; color: var(--text-muted); border-left: 2px solid var(--brand-accent); padding-left: 1rem;">
+              "Collaborating with Wazir was an exceptional experience. The team's dedication and sharp strategic thinking added meaningful value."
+            </p>
+          </div>
+
+          <!-- Client 4: Nema Club+ -->
+          <div class="case-study-card glass-card" style="padding: 2.5rem;">
+            <div class="client-logo-container">
+              <!-- Custom Medical Shield SVG Logo -->
+              <svg class="client-logo-svg" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12 2L4 5V11C4 16.55 7.8 21.74 12 23C16.2 21.74 20 16.55 20 11V5L12 2M12 17H10V15H12V17M13 13H11V7H13V13Z"/>
+              </svg>
+            </div>
+            <div class="case-study-meta">
+              <span class="case-study-tag">Medical Services</span>
+              <span class="case-study-industry">Gurgaon</span>
+            </div>
+            <h3 style="font-family: var(--font-header); font-size: 1.4rem; color: var(--text-primary); margin: 0.5rem 0 1rem;">Nema Club+</h3>
+            <p class="case-study-problem" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 1.5rem;">
+              <strong>Business Problem:</strong> Go-to-Market (GTM) formulation and digital positioning strategies for their premium healthcare app rollout.
+            </p>
+            <p class="case-study-quote" style="font-style: italic; font-size: 0.85rem; color: var(--text-muted); border-left: 2px solid var(--brand-accent); padding-left: 1rem;">
+              "Working with Wazir was highly positive. Their suggestions and well-researched report played a key role in refining our GTM roadmap."
+            </p>
+          </div>
+
+          <!-- Client 5: The Weekend Door -->
+          <div class="case-study-card glass-card" style="padding: 2.5rem;">
+            <div class="client-logo-container">
+              <!-- Custom Villa / Door SVG Logo -->
+              <svg class="client-logo-svg" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M19 4H5C3.9 4 3 4.9 3 6V20C3 21.1 3.9 22 5 22H19C20.1 22 21 21.1 21 20V6C21 4.9 20.1 4 19 4M19 20H5V6H19V20M12 11C10.9 11 10 11.9 10 13S10.9 15 12 15 14 14.1 14 13 13.1 11 12 11M6 18H8V8H6V18M16 18H18V8H16V18Z"/>
+              </svg>
+            </div>
+            <div class="case-study-meta">
+              <span class="case-study-tag">Travel &amp; Rental</span>
+              <span class="case-study-industry">Hyderabad</span>
+            </div>
+            <h3 style="font-family: var(--font-header); font-size: 1.4rem; color: var(--text-primary); margin: 0.5rem 0 1rem;">The Weekend Door</h3>
+            <p class="case-study-problem" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 1.5rem;">
+              <strong>Business Problem:</strong> Expansion maps and conversion funnel models to scale premium villa rentals and vacation lodging.
+            </p>
+            <p class="case-study-quote" style="font-style: italic; font-size: 0.85rem; color: var(--text-muted); border-left: 2px solid var(--brand-accent); padding-left: 1rem;">
+              "Their strategic inputs helped us solve key scaling hurdles. Extremely professional, proactive, and highly aligned."
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <a href="../" class="logo" style="margin-bottom: 1.5rem;">
+            <img src="../wazir-logo.png" alt="Wazir Logo" class="nav-logo-img">
+            WAZIR<span>IIMR</span>
+          </a>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 2rem;">
+            Strategy &amp; Consulting Club of IIM Rohtak. Scale up consulting culture on campus.
+          </p>
+        </div>
+                <div class="footer-links-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="../">Home</a></li>
+            <li><a href="../about/">About Us</a></li>
+            <li><a href="../verticals/">Verticals</a></li>
+            <li><a href="../casebook/">Casebook</a></li>
+            <li><a href="../apex/">APEX Clinic</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-links-col">
+          <h4>Core Activities</h4>
+          <ul>
+            <li><a href="../events/">Events</a></li>
+            <li><a href="../team/">Team</a></li>
+            <li><a href="../partner/">Partner With Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>External Links</h4>
+          <ul>
+            <li><a href="https://www.linkedin.com/company/wazir-snc-iimrohtak/posts/?feedView=all" target="_blank">LinkedIn Page</a></li>
+            <li><a href="https://www.instagram.com/wazir_iimrohtak/" target="_blank">Instagram</a></li>
+            <li><a href="https://iimrohtak.ac.in" target="_blank">IIM Rohtak Official</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright" style="text-align: center;">
+          © 2026 Wazir SNC IIM Rohtak. All rights reserved.
+        </div>
+        <div class="footer-socials">
+          <a href="https://www.linkedin.com/company/wazir-snc-iimrohtak/posts/?feedView=all" class="footer-social-link" target="_blank">LinkedIn</a>
+          <a href="https://www.instagram.com/wazir_iimrohtak/" class="footer-social-link" target="_blank">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../app.js?v=3.2"></script>
+</body>
+</html>

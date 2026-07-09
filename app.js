@@ -8,7 +8,6 @@ window.addEventListener('scroll', () => {
   } else {
     header.classList.remove('scrolled');
   }
-  highlightNav();
 });
 
 // Mobile Navigation Toggle
@@ -31,25 +30,10 @@ navLinks.forEach(link => {
   });
 });
 
-// Active Link Highlight on Scroll
+// Active Link Highlight based on current URL path
 function highlightNav() {
-  const sections = document.querySelectorAll('section, main');
-  const scrollPos = window.scrollY + 100;
-
-  sections.forEach(section => {
-    const top = section.offsetTop;
-    const height = section.offsetHeight;
-    const id = section.getAttribute('id');
-
-    if (scrollPos >= top && scrollPos < top + height) {
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${id}`) {
-          link.classList.add('active');
-        }
-      });
-    }
-  });
+  // Disabled: Multi-page static HTML files already have hardcoded active classes.
+  // Dynamic JavaScript override was removing active states on subpages.
 }
 
 /* ==========================================================================
@@ -71,17 +55,23 @@ function switchHubTab(event, tabId) {
   document.getElementById(tabId).classList.add('active');
 }
 
-// Casebook PDF Download Simulation
+function switchHubTabDirect(tabId) {
+  const tabBtn = document.querySelector(`.hub-tab-btn[onclick*="${tabId}"]`);
+  if (tabBtn) {
+    switchHubTab({ currentTarget: tabBtn }, tabId);
+  }
+}
+
+// Casebook PDF Download Execution
 function simulateDownload() {
   const btn = event.currentTarget;
   const originalText = btn.innerHTML;
   btn.disabled = true;
   btn.innerHTML = `
-    <svg style="width:18px; height:18px; fill:currentColor; animation: spin 1s linear infinite;" viewBox="0 0 24 24">
+    <svg style="width:18px; height:18px; fill:currentColor; animation: spin 1s linear infinite; margin-right:0.5rem;" viewBox="0 0 24 24">
       <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"/>
-    </svg> Preparing Casebook 3.0...`;
+    </svg> Preparing Casebook 4.0...`;
   
-  // Custom spin style insertion if not present
   if (!document.getElementById('spin-style')) {
     const style = document.createElement('style');
     style.id = 'spin-style';
@@ -90,18 +80,25 @@ function simulateDownload() {
   }
 
   setTimeout(() => {
-    btn.innerHTML = `✓ Download Complete`;
+    btn.innerHTML = `✓ Downloading Casebook 4.0...`;
     btn.style.background = 'rgb(74, 222, 128)';
     btn.style.color = '#030a16';
     
+    // Perform actual file download
+    const link = document.createElement('a');
+    link.href = 'Wazir_Casebook_4.0.pdf';
+    link.download = 'Wazir_Casebook_4.0.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
     setTimeout(() => {
       btn.disabled = false;
       btn.innerHTML = originalText;
       btn.style.background = '';
       btn.style.color = '';
-      alert('Casebook 3.0 Download Initiated! In a production deployment, this link would fetch the latest Wazir IIM Rohtak Casebook PDF.');
     }, 2000);
-  }, 1800);
+  }, 1500);
 }
 
 /* ==========================================================================
@@ -122,7 +119,7 @@ const verticalsData = {
   'clinic': {
     title: 'APEX - The Consulting Clinic',
     subtitle: "You don't learn strategy from slides — you learn it by solving problems.",
-    desc: "Our apex pro-bono consulting practice. We connect student teams with small-and-medium enterprises (SMEs) and government departments to deliver actionable strategic roadmaps.",
+    desc: "Our APEX pro-bono consulting practice. We connect student teams with small-and-medium enterprises (SMEs) and government departments to deliver actionable strategic roadmaps.",
     bullets: [
       { title: "Client Sourcing & Audit", text: "Identify high-potential SMEs and govt. bodies and assess business models." },
       { title: "In-Depth Diagnosis", text: "Conduct business analysis through site visits, interviews, and audits." },
@@ -146,7 +143,7 @@ const verticalsData = {
     subtitle: "Events aren't games of chance — they're games of choice. Think like a Wazir.",
     desc: "Managing national case challenges and strategy hackathons. We partner with top hosting platforms to drive massive student engagement and corporate visibility.",
     bullets: [
-      { title: "Consultant of the Year (COTY)", text: "Our flagship intra-college crucible, with 8 editions conducted." },
+      { title: "Consultant of the Year (COTY)", text: "Our flagship intra-college crucible, with 9 editions conducted." },
       { title: "Legacy Events", text: "Director's Roundtable 2.0, The Consulting Carousel, and Impostors Gambit." },
       { title: "Passion Events", text: "Cinematic Seconds, Product Playground, Stratlyst, and Prodthink Quest." },
       { title: "Scale & Outreach", text: "1M+ impressions, 24,000+ registrations, and 100+ national level competitions." }
@@ -176,7 +173,7 @@ const verticalsData = {
   }
 };
 
-function inspectVertical(id) {
+function inspectVertical(id, clickedEl) {
   const data = verticalsData[id];
   if (!data) return;
 
@@ -185,12 +182,9 @@ function inspectVertical(id) {
   pillars.forEach(p => p.classList.remove('active'));
 
   // Find the clicked pillar element
-  // Since inspectVertical is called inline, we can find the pillar based on index or onclick match
-  const clickedPillar = Array.from(pillars).find(p => p.getAttribute('onclick').includes(id));
+  const clickedPillar = clickedEl || Array.from(pillars).find(p => p.getAttribute('onclick') && p.getAttribute('onclick').includes(id));
   if (clickedPillar) clickedPillar.classList.add('active');
 
-  const panel = document.getElementById('vertical-detail-panel');
-  
   // Format bullets HTML
   let bulletsHtml = '';
   data.bullets.forEach(b => {
@@ -205,7 +199,7 @@ function inspectVertical(id) {
     `;
   });
 
-  panel.innerHTML = `
+  const panelHtml = `
     <div class="glass-card vertical-detail-card" style="animation: fadeIn 0.4s ease forwards;">
       <div class="vertical-detail-header">
         <h3>${data.title}</h3>
@@ -218,6 +212,35 @@ function inspectVertical(id) {
       </div>
     </div>
   `;
+
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile && clickedPillar) {
+    // Remove any existing inline panel
+    const existingInline = document.querySelector('.mobile-inline-panel');
+    if (existingInline) existingInline.remove();
+
+    // Insert inline panel immediately after the clicked pillar
+    const inlineWrapper = document.createElement('div');
+    inlineWrapper.className = 'mobile-inline-panel';
+    inlineWrapper.style.cssText = 'width:100%; margin: 0.75rem 0 1rem; order: 999;';
+    inlineWrapper.innerHTML = panelHtml;
+    clickedPillar.insertAdjacentElement('afterend', inlineWrapper);
+
+    // Scroll to the inline panel smoothly
+    setTimeout(() => {
+      inlineWrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+  } else {
+    // Desktop: populate the bottom panel
+    const panel = document.getElementById('vertical-detail-panel');
+    if (panel) {
+      panel.innerHTML = panelHtml;
+      setTimeout(() => {
+        panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    }
+  }
 }
 
 
@@ -329,152 +352,431 @@ window.addEventListener('click', (e) => {
 
 
 /* ==========================================================================
-   GUESSTIMATE SIMULATOR GAME MACHINERY
+   DYNAMIC CONSULTING CASE STUDY SIMULATOR ENGINE
    ========================================================================== */
-let simState = {
-  currentStep: 1,
-  answers: {
-    step1: null,
-    step2: null,
-    step3: null
+const casesData = {
+  ev_charging: {
+    title: "Case 1: Guesstimate (EV Charging Stations in Mumbai)",
+    prompt: {
+      type: "Guesstimate Challenge",
+      text: "Estimate the annual market size of Electric Vehicle (EV) charging stations in Mumbai."
+    },
+    step1: {
+      title: "Step 1: Clarifying the Scope",
+      question: "Before jumping into numbers, you must align scope with the interviewer. Which question is critical to scope this guesstimate properly?",
+      choices: [
+        { key: "A", text: "Should we consider AC slow chargers vs DC fast chargers?", status: "incorrect", feedback: "While interesting, commercial charging station infrastructure is driven by business/public deployment, not specifically charging standards details." },
+        { key: "B", text: "Are we estimating public commercial charging stations, or does this include private home chargers?", status: "correct", feedback: "Excellent! Knowing whether we target private residential chargers, public commercial hubs, or fleet depots is critical for structuring the demand model." },
+        { key: "C", text: "Should we limit the estimate to specific brands of EV cars operating in Mumbai?", status: "incorrect", feedback: "The model of EV cars (Tesla vs local brands) doesn't change the core infrastructure math for counting charging stations." }
+      ]
+    },
+    step2: {
+      title: "Step 2: Choosing Your Approach",
+      question: "Now choose the optimal formula tree to model the total number of public charging stations in Mumbai.",
+      choices: [
+        { key: "A", text: "Total Mumbai Vehicles × EV Penetration Rate × Average cost of electricity.", status: "incorrect", feedback: "This does not account for the frequency of usage or utilization factors of individual charging stations, which dictates how many are needed." },
+        { key: "B", text: "(Total EVs in Mumbai × Avg Charges needed/week) ÷ (Avg Capacity of a Station charges/week).", status: "correct", feedback: "Correct! Structuring via supply capacity and vehicle charging demand is the standard MECE approach for fleet capacity planning." },
+        { key: "C", text: "Total Mumbai Area ÷ Average grid layout capacity per square kilometer.", status: "incorrect", feedback: "This focuses strictly on land footprint rather than transport/vehicle demand, which is harder to estimate accurately." }
+      ]
+    },
+    step3: {
+      title: "Step 3: Quantifying the Drivers",
+      question: "Fill in the structured assumptions below. We've pre-filled some standard base assumptions. Complete the calculation.",
+      formula: "Stations = (EVs × Freq) / Capacity",
+      variables: [
+        { label: "1. Estimated Total EV Vehicles in Mumbai", id: "calc-evs", value: 60000, readonly: true },
+        { label: "2. Average Charges required per EV per week", id: "calc-freq", value: 2, readonly: false },
+        { label: "3. Max weekly charge capacity per Station", id: "calc-capacity", value: 80, readonly: false }
+      ],
+      resultLabel: "Enter your calculated Stations",
+      hint: "Hint: Multiply EV count by charge frequency, then divide by weekly station capacity.",
+      math: (v1, v2, v3) => Math.round((v1 * v2) / v3)
+    },
+    step4: {
+      title: "Guesstimate Cracked!",
+      executiveSummary: "Guesstimate approach focuses on scoping (public vs private), choosing a supply-demand matching formula, and applying realistic utilization adjustments. While the base mathematical calculation yields 1,500 locations, a practical model must incorporate charger density (typically 4 ports per station) and peak-hour utilization factors (~20-30%), which lowers the required public station count to roughly 375 commercial hubs."
+    }
   },
-  stepValidity: {
-    step1: false,
-    step2: false,
-    step3: false
+  q_commerce: {
+    title: "Case 2: Profitability (Q-Commerce Dark Store)",
+    prompt: {
+      type: "Profitability Challenge",
+      text: "A quick-commerce startup in Bangalore is facing declining profitability despite rising order volumes. Diagnose the root cause."
+    },
+    step1: {
+      title: "Step 1: Clarifying the Scope",
+      question: "Which of the following questions is most critical to narrow down where the profitability leak is happening?",
+      choices: [
+        { key: "A", text: "Are competitor startups also facing similar drops in profit margins in Bangalore?", status: "incorrect", feedback: "Competitor data is helpful, but we must first isolate whether this is an internal unit economics leak (revenue side vs. cost side) for our specific client." },
+        { key: "B", text: "Has the average order value (AOV) declined, or have the delivery/dark-store operational costs per order increased?", status: "correct", feedback: "Excellent! This isolates the unit margin drivers. If cost per order went up while order value stayed flat, the margin is squeezed." },
+        { key: "C", text: "Which product categories (groceries, electronics) are driving the rising order volume?", status: "incorrect", feedback: "Category mix matters, but is secondary to understanding the overall cost and revenue trend lines per order." }
+      ]
+    },
+    step2: {
+      title: "Step 2: Choosing Your Approach",
+      question: "Choose the optimal formula tree to calculate the net operating profit of a single dark store.",
+      choices: [
+        { key: "A", text: "Revenue = Total Orders × Avg Ticket Price × Conversion Rate.", status: "incorrect", feedback: "This only models top-line revenue, ignoring fixed dark store operations and variable delivery costs." },
+        { key: "B", text: "Profit = (Average Order Value - Cost of Goods Sold - Delivery Cost) × Total Orders - Dark Store Fixed Cost.", status: "correct", feedback: "Correct! This separates variable order margins from fixed real estate operations, allowing true operating leverage calculation." },
+        { key: "C", text: "Profit = Gross Margin % × Marketing spend per customer acquisition.", status: "incorrect", feedback: "This is a customer lifetime value model, not an operating store profitability model." }
+      ]
+    },
+    step3: {
+      title: "Step 3: Quantifying the Drivers",
+      question: "Let's calculate the operating profit/loss of a Bangalore dark store with these current monthly assumptions:",
+      formula: "Monthly Profit = (AOV - COGS - Delivery) × Orders - Fixed Cost",
+      variables: [
+        { label: "1. Average Order Value (AOV)", id: "calc-aov", value: 400, readonly: true },
+        { label: "2. Cost of Goods Sold (COGS)", id: "calc-cogs", value: 280, readonly: true },
+        { label: "3. Delivery Cost per Order", id: "calc-delivery", value: 60, readonly: false },
+        { label: "4. Dark Store Fixed Operational Cost", id: "calc-fixed", value: 120000, readonly: true },
+        { label: "5. Total Monthly Orders", id: "calc-orders", value: 10000, readonly: true }
+      ],
+      resultLabel: "Enter monthly net operating profit (₹)",
+      hint: "Hint: Variable Margin per order is ₹400 - ₹280 - Delivery Cost. Multiply by Orders and subtract Fixed Cost.",
+      math: (v1, v2, v3, v4, v5) => ((v1 - v2 - v3) * v5) - v4
+    },
+    step4: {
+      title: "Profitability Case Cracked!",
+      executiveSummary: "The dark store generates a net operating profit of <strong>₹4,80,000</strong> per month with a ₹60 delivery cost. Note that if delivery costs surge to ₹80, profit drops by 40% to ₹2,80,000, showing high sensitivity to logistics efficiency."
+    }
+  },
+  ev_battery: {
+    title: "Case 3: Market Entry (EV Cell Production)",
+    prompt: {
+      type: "Market Entry Strategy",
+      text: "A global EV battery manufacturer wants to enter the Indian 2-wheeler EV market. Determine if they should enter."
+    },
+    step1: {
+      title: "Step 1: Clarifying the Scope",
+      question: "Before calculating numbers, what strategic question is vital to understand the client's entry motives?",
+      choices: [
+        { key: "A", text: "What is the client's financial/market share target, and is there a preference for organic vs inorganic entry?", status: "correct", feedback: "Excellent! Clarifying exit criteria, return targets, and entry modes (like JV vs self-built plant) is the first step of any market entry framework." },
+        { key: "B", text: "Should we analyze the EV car market instead of 2-wheelers?", status: "incorrect", feedback: "The client specified 2-wheelers, which is currently the largest volume EV segment in India. We should stick to the brief unless it's proven non-viable." },
+        { key: "C", text: "How long does it take to charge a standard 2-wheeler battery pack?", status: "incorrect", feedback: "Technical charging speed is a product feature, not a strategic market entry gate question." }
+      ]
+    },
+    step2: {
+      title: "Step 2: Choosing Your Approach",
+      question: "Select the MECE (Mutually Exclusive, Collectively Exhaustive) framework to evaluate the market entry decision.",
+      choices: [
+        { key: "A", text: "Market attractiveness (size, growth) → Competitive Landscape → Client Capabilities → Financial Viability.", status: "correct", feedback: "Correct! This covers all four pillars of market entry strategy logically." },
+        { key: "B", text: "Marketing Mix (Product, Price, Place, Promotion).", status: "incorrect", feedback: "The 4Ps is a tactical marketing framework, not a strategic macro-level market entry feasibility framework." },
+        { key: "C", text: "Porter's Five Forces analysis only.", status: "incorrect", feedback: "Five forces analyzes industry attractiveness, but neglects client internal capability and detailed project financials." }
+      ]
+    },
+    step3: {
+      title: "Step 3: Quantifying the Drivers",
+      question: "Estimate the client's year 1 operating profits assuming a 5% target market share:",
+      formula: "Year 1 Profit = (Market Size × EV Penetration × Share × Margin/Pack) - Setup Investment",
+      variables: [
+        { label: "1. Total 2W Market Size (Units)", id: "calc-msize", value: 5000000, readonly: true },
+        { label: "2. EV Penetration Rate (%)", id: "calc-penetration", value: 10, readonly: true },
+        { label: "3. Target Market Share (%)", id: "calc-share", value: 5, readonly: true },
+        { label: "4. Profit Margin per battery pack (₹)", id: "calc-margin", value: 5000, readonly: true },
+        { label: "5. Year 1 Setup & Regulatory Investment (₹)", id: "calc-setup", value: 100000000, readonly: false }
+      ],
+      resultLabel: "Enter Year 1 Operating Profit (₹)",
+      hint: "Hint: Year 1 Sales = 5M × 10% × 5% = 25,000 battery packs. Multiply by margin (₹5,000) and subtract Setup Investment.",
+      math: (v1, v2, v3, v4, v5) => (v1 * (v2 / 100) * (v3 / 100) * v4) - v5
+    },
+    step4: {
+      title: "Market Entry Case Cracked!",
+      executiveSummary: "With a ₹100,000,000 (10 Cr) setup investment, Year 1 operating profit is <strong>₹25,000,000</strong> (2.5 Cr) on sales of 25,000 packs. The payback period looks extremely positive (under 4 years), supporting entry."
+    }
   }
 };
 
-// UI DOM References
-const simBtnBack = document.getElementById('sim-btn-back');
-const simBtnNext = document.getElementById('sim-btn-next');
-const calcResultField = document.getElementById('calc-result');
-const calcFreqField = document.getElementById('calc-freq');
-const calcCapacityField = document.getElementById('calc-capacity');
+let simState = {
+  currentStep: 1,
+  answers: { step1: null, step2: null, step3: null },
+  stepValidity: { step1: false, step2: false, step3: false }
+};
 
-// Handle choice selection in Step 1 and Step 2
-function selectChoice(button, stepNum, status, feedbackText) {
+let activeCaseId = "ev_charging";
+
+
+
+function changeActiveCase(caseId) {
+  activeCaseId = caseId;
+  simState = {
+    currentStep: 1,
+    answers: { step1: null, step2: null, step3: null },
+    stepValidity: { step1: false, step2: false, step3: false }
+  };
+  renderActiveStep();
+}
+
+function renderActiveStep() {
+  const caseData = casesData[activeCaseId];
+  if (!caseData) return;
+
+  const promptBox = document.getElementById("sim-prompt-box");
+  if (promptBox) {
+    promptBox.innerHTML = `
+      <h4>${caseData.prompt.type}</h4>
+      <p>"${caseData.prompt.text}"</p>
+    `;
+  }
+
+  for (let i = 1; i <= 4; i++) {
+    const indicator = document.getElementById(`sim-step-${i}-indicator`);
+    if (indicator) {
+      indicator.classList.remove('active', 'completed');
+      if (i < simState.currentStep) {
+        indicator.classList.add('completed');
+      } else if (i === simState.currentStep) {
+        indicator.classList.add('active');
+      }
+    }
+  }
+
+  const simBtnBack = document.getElementById('sim-btn-back');
+  const simBtnNext = document.getElementById('sim-btn-next');
+  if (simBtnBack && simBtnNext) {
+    simBtnBack.disabled = simState.currentStep === 1;
+    if (simState.currentStep === 4) {
+      simBtnNext.innerHTML = 'Restart';
+      simBtnNext.disabled = false;
+      simBtnBack.style.display = 'none';
+    } else {
+      simBtnNext.innerHTML = 'Next Step';
+      simBtnBack.style.display = 'inline-flex';
+      simBtnNext.disabled = !simState.stepValidity[`step${simState.currentStep}`];
+    }
+  }
+
+  const dynamicPane = document.getElementById("sim-dynamic-pane");
+  if (!dynamicPane) return;
+
+  if (simState.currentStep === 1 || simState.currentStep === 2) {
+    const stepKey = `step${simState.currentStep}`;
+    const stepData = caseData[stepKey];
+    const hasAnswered = simState.answers[stepKey] !== null;
+    const isCorrect = simState.answers[stepKey] === true;
+
+    let choicesHTML = "";
+    stepData.choices.forEach(c => {
+      let extraClass = "";
+      if (hasAnswered) {
+        if (c.status === "correct") {
+          extraClass = "correct selected";
+        } else if (c.status === "incorrect" && !isCorrect) {
+          extraClass = "incorrect selected";
+        }
+      }
+      choicesHTML += `
+        <button class="sim-choice-btn ${extraClass}" onclick="selectDynamicChoice(this, ${simState.currentStep}, '${c.status}', '${c.feedback.replace(/'/g, "\\'")}')">
+          <div class="choice-marker">${c.key}</div>
+          <span>${c.text}</span>
+        </button>
+      `;
+    });
+
+    dynamicPane.innerHTML = `
+      <div class="sim-step-content active">
+        <h3 class="sim-question-title text-gradient">${stepData.title}</h3>
+        <p style="margin-bottom: 1.5rem; font-size: 0.95rem;">${stepData.question}</p>
+        <div class="sim-choices-grid">
+          ${choicesHTML}
+        </div>
+        <div class="sim-feedback-box" id="sim-feedback-${simState.currentStep}" style="display: ${hasAnswered ? 'block' : 'none'};"></div>
+      </div>
+    `;
+
+    if (hasAnswered) {
+      const fbBox = document.getElementById(`sim-feedback-${simState.currentStep}`);
+      const selectedChoice = stepData.choices.find(c => isCorrect ? c.status === "correct" : c.status === "incorrect");
+      if (selectedChoice && fbBox) {
+        fbBox.className = `sim-feedback-box ${selectedChoice.status}`;
+        fbBox.innerHTML = `<strong>${selectedChoice.status.toUpperCase()}:</strong> ${selectedChoice.feedback}`;
+      }
+    }
+
+  } else if (simState.currentStep === 3) {
+    const stepData = caseData.step3;
+    let variablesHTML = "";
+    stepData.variables.forEach(v => {
+      variablesHTML += `
+        <div class="calc-input-group">
+          <label>${v.label}</label>
+          <input type="number" id="${v.id}" class="calc-input-field" value="${v.value}" ${v.readonly ? 'readonly' : ''} oninput="calculateDynamicStep()">
+        </div>
+      `;
+    });
+
+    dynamicPane.innerHTML = `
+      <div class="sim-step-content active">
+        <h3 class="sim-question-title text-gradient">${stepData.title}</h3>
+        <p style="margin-bottom: 1.5rem; font-size: 0.95rem;">${stepData.question}</p>
+        
+        <div class="sim-calculator-container">
+          <div class="calc-workspace">
+            <div class="calc-title">Assumptions & Variables</div>
+            <div class="calc-inputs-grid">
+              ${variablesHTML}
+            </div>
+          </div>
+          
+          <div class="calc-workspace">
+            <div class="calc-title">Formula Output</div>
+            <div class="calc-formula-display">
+              ${stepData.formula}
+            </div>
+            <div class="calc-inputs-grid">
+              <div class="calc-input-group">
+                <label>${stepData.resultLabel}</label>
+                <input type="number" id="calc-result" class="calc-input-field" placeholder="Calculate & Enter" oninput="calculateDynamicStep()">
+              </div>
+              <p style="font-size: 0.8rem;" id="calc-hint-msg">${stepData.hint}</p>
+            </div>
+          </div>
+        </div>
+        <div class="sim-feedback-box" id="sim-feedback-3" style="display: none;"></div>
+      </div>
+    `;
+
+    calculateDynamicStep();
+
+  } else if (simState.currentStep === 4) {
+    const stepData = caseData.step4;
+
+    // Get the next case ID for cycling
+    let nextCaseId = "ev_charging";
+    let nextCaseLabel = "Practice Guesstimate Case Again";
+    if (activeCaseId === "ev_charging") {
+      nextCaseId = "q_commerce";
+      nextCaseLabel = "Practice Next Case (Profitability)";
+    } else if (activeCaseId === "q_commerce") {
+      nextCaseId = "ev_battery";
+      nextCaseLabel = "Practice Next Case (Market Entry)";
+    }
+
+    // Compile download button & case cycler HTML
+    const downloadButtonHtml = `
+      <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="../Wazir_Casebook_4.0.pdf" download="Wazir_Casebook_4.0.pdf" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+          <svg style="width: 18px; height: 18px; fill: currentColor;" viewBox="0 0 24 24"><path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/></svg>
+          Download Casebook (PDF)
+        </a>
+        <button class="btn btn-secondary" onclick="changeActiveCase('${nextCaseId}')">
+          ${nextCaseLabel}
+        </button>
+      </div>
+    `;
+
+    dynamicPane.innerHTML = `
+      <div class="sim-step-content active">
+        <div class="sim-success-content" style="text-align: center;">
+          <div class="success-badge-icon">✓</div>
+          <h3>${stepData.title}</h3>
+          <p style="margin-bottom: 2rem;">You have demonstrated structured consulting logic. Here is your evaluation report:</p>
+          
+          <p style="font-size: 0.95rem; max-width: 550px; margin: 0 auto 1.5rem; line-height: 1.5; text-align: left;">
+            <strong>Executive Summary & Approach:</strong> ${stepData.executiveSummary}
+          </p>
+          ${downloadButtonHtml}
+        </div>
+      </div>
+    `;
+  }
+}
+
+function selectDynamicChoice(button, stepNum, status, feedbackText) {
   const choicesGrid = button.parentElement;
   const siblingBtns = choicesGrid.querySelectorAll('.sim-choice-btn');
   
   siblingBtns.forEach(btn => {
-    btn.classList.remove('selected', 'correct', 'incorrect');
+    btn.className = 'sim-choice-btn';
   });
 
-  // Apply statuses classes
   button.classList.add('selected');
+  button.classList.add(status);
   
-  // Show feedback container
   const feedbackBox = document.getElementById(`sim-feedback-${stepNum}`);
-  feedbackBox.className = `sim-feedback-box ${status}`;
-  feedbackBox.innerHTML = `<strong>${status.toUpperCase()}:</strong> ${feedbackText}`;
+  if (feedbackBox) {
+    feedbackBox.style.display = 'block';
+    feedbackBox.className = `sim-feedback-box ${status}`;
+    feedbackBox.innerHTML = `<strong>${status.toUpperCase()}:</strong> ${feedbackText}`;
+  }
 
-  // Log to state
   simState.answers[`step${stepNum}`] = status === 'correct';
   
+  const nextBtn = document.getElementById('sim-btn-next');
   if (status === 'correct') {
-    button.classList.add('correct');
     simState.stepValidity[`step${stepNum}`] = true;
-    simBtnNext.disabled = false;
+    if (nextBtn) nextBtn.disabled = false;
   } else {
-    button.classList.add('incorrect');
     simState.stepValidity[`step${stepNum}`] = false;
-    simBtnNext.disabled = true; // Block progression on wrong choices to force learning
+    if (nextBtn) nextBtn.disabled = true;
   }
 }
 
-// Watch calculator input on Step 3
-if (calcResultField) {
-  calcResultField.addEventListener('input', () => {
-    const val = parseInt(calcResultField.value);
-    const feedbackBox = document.getElementById('sim-feedback-3');
-    
-    const evs = 60000;
-    const freq = parseInt(calcFreqField.value) || 0;
-    const cap = parseInt(calcCapacityField.value) || 1;
-    const expectedValue = Math.round((evs * freq) / cap);
+function calculateDynamicStep() {
+  const caseData = casesData[activeCaseId];
+  if (!caseData || !caseData.step3) return;
 
-    if (val === expectedValue) {
-      feedbackBox.className = 'sim-feedback-box correct';
-      feedbackBox.innerHTML = `<strong>CORRECT:</strong> Math verified! 60,000 EVs × ${freq} charges / ${cap} capacity = ${expectedValue} public stations needed.`;
-      simState.stepValidity.step3 = true;
-      simBtnNext.disabled = false;
-      simState.answers.step3 = true;
-    } else {
-      feedbackBox.className = 'sim-feedback-box incorrect';
-      feedbackBox.innerHTML = `<strong>INCORRECT:</strong> Value mismatch. Formula is: (60,000 × ${freq}) ÷ ${cap} = ?`;
-      simState.stepValidity.step3 = false;
-      simBtnNext.disabled = true;
-      simState.answers.step3 = false;
-    }
+  const stepData = caseData.step3;
+  const vals = stepData.variables.map(v => {
+    const input = document.getElementById(v.id);
+    return input ? (parseFloat(input.value) || 0) : 0;
   });
-}
 
-function updateSimUI() {
-  // Hide all step content
-  for (let i = 1; i <= 4; i++) {
-    document.getElementById(`sim-step-${i}`).classList.remove('active');
-    document.getElementById(`sim-step-${i}-indicator`).classList.remove('active', 'completed');
-  }
+  const calcResult = document.getElementById("calc-result");
+  if (!calcResult) return;
 
-  // Show active step
-  document.getElementById(`sim-step-${simState.currentStep}`).classList.add('active');
-  
-  // Highlight indicators
-  for (let i = 1; i < simState.currentStep; i++) {
-    document.getElementById(`sim-step-${i}-indicator`).classList.add('completed');
-  }
-  document.getElementById(`sim-step-${simState.currentStep}-indicator`).classList.add('active');
+  const userVal = parseFloat(calcResult.value);
+  const expectedValue = stepData.math(...vals);
 
-  // Disable back on step 1
-  simBtnBack.disabled = simState.currentStep === 1;
+  const feedbackBox = document.getElementById('sim-feedback-3');
+  if (!feedbackBox) return;
 
-  // Manage Next button state/label
-  if (simState.currentStep === 4) {
-    simBtnNext.innerHTML = 'Restart';
-    simBtnNext.disabled = false;
-    simBtnBack.style.display = 'none';
-    
-    // Calculate Score Summary
-    const correctCount = Object.values(simState.answers).filter(val => val === true).length;
-    const percentage = Math.round((correctCount / 3) * 100);
-    document.getElementById('sim-final-score').innerHTML = `${percentage}%`;
+  const nextBtn = document.getElementById('sim-btn-next');
+
+  if (isNaN(userVal) || calcResult.value.trim() === "") {
+    feedbackBox.style.display = 'none';
+    simState.stepValidity.step3 = false;
+    if (nextBtn) nextBtn.disabled = true;
+    simState.answers.step3 = false;
   } else {
-    simBtnNext.innerHTML = 'Next Step';
-    simBtnBack.style.display = 'inline-flex';
-    simBtnNext.disabled = !simState.stepValidity[`step${simState.currentStep}`];
+    feedbackBox.style.display = 'block';
+    if (userVal === expectedValue) {
+      feedbackBox.className = 'sim-feedback-box correct';
+      feedbackBox.style.borderLeft = '';
+      feedbackBox.innerHTML = `<strong>CORRECT:</strong> Math verified! Your calculation matches the base model of ${expectedValue.toLocaleString()}.`;
+    } else {
+      const diffPercent = Math.abs((userVal - expectedValue) / expectedValue) * 100;
+      feedbackBox.className = 'sim-feedback-box correct';
+      feedbackBox.style.borderLeft = '3px solid var(--brand-accent)';
+      feedbackBox.innerHTML = `<strong>APPROACH VERIFIED:</strong> Your calculation of ${userVal.toLocaleString()} is noted (which is ${diffPercent.toFixed(1)}% off from the baseline model of ${expectedValue.toLocaleString()}). Let's proceed to analyze the structured roadmap.`;
+    }
+    simState.stepValidity.step3 = true;
+    if (nextBtn) nextBtn.disabled = false;
+    simState.answers.step3 = true;
   }
 }
 
 function nextSimStep() {
   if (simState.currentStep === 4) {
-    // Restart logic
     simState = {
       currentStep: 1,
       answers: { step1: null, step2: null, step3: null },
       stepValidity: { step1: false, step2: false, step3: false }
     };
-    // Clear inputs & feedback
-    calcResultField.value = '';
-    document.querySelectorAll('.sim-choice-btn').forEach(btn => btn.className = 'sim-choice-btn');
-    document.querySelectorAll('.sim-feedback-box').forEach(box => {
-      box.style.display = 'none';
-      box.className = 'sim-feedback-box';
-    });
-    updateSimUI();
+    renderActiveStep();
     return;
   }
 
   if (simState.stepValidity[`step${simState.currentStep}`]) {
     simState.currentStep++;
-    updateSimUI();
+    renderActiveStep();
   }
 }
 
 function prevSimStep() {
   if (simState.currentStep > 1) {
     simState.currentStep--;
-    updateSimUI();
+    renderActiveStep();
   }
 }
 
@@ -482,12 +784,13 @@ function prevSimStep() {
 /* ==========================================================================
    CLIENT CLINIC INTAKE FORM HANDLING
    ========================================================================== */
-const intakeForm = document.getElementById('clinic-intake-form');
-const successOverlay = document.getElementById('form-success');
-
 function handleFormSubmit(event) {
   event.preventDefault();
-  const submitBtn = intakeForm.querySelector('button[type="submit"]');
+  const form = event.currentTarget || document.getElementById('clinic-intake-form');
+  if (!form) return;
+
+  const submitBtn = form.querySelector('button[type="submit"]');
+  if (!submitBtn) return;
   const originalText = submitBtn.innerHTML;
   
   submitBtn.disabled = true;
@@ -496,22 +799,93 @@ function handleFormSubmit(event) {
       <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"/>
     </svg> Submitting Brief...`;
 
-  setTimeout(() => {
-    successOverlay.classList.add('active');
+  const name = form.querySelector('#form-name').value;
+  const email = form.querySelector('#form-email').value;
+  const org = form.querySelector('#form-org').value;
+  const reason = form.querySelector('#form-reason').value;
+  const message = form.querySelector('#form-message').value;
+
+  fetch("https://formsubmit.co/ajax/snc@iimrohtak.ac.in", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      name: name,
+      email: email,
+      subject: `New Wazir Website Collaboration Brief: ${org}`,
+      organization: org,
+      inquiry_type: reason,
+      message: message
+    })
+  })
+  .then(async (response) => {
+    let json = await response.json();
+    const overlay = form.parentElement.querySelector('#form-success') || document.getElementById('form-success');
+    if (response.ok) {
+      if (overlay) overlay.classList.add('active');
+    } else {
+      console.log(response);
+      alert("Submission failed: " + (json.message || "Unknown error"));
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+    alert("Form submission failed due to a network error.");
+  })
+  .then(() => {
     submitBtn.disabled = false;
     submitBtn.innerHTML = originalText;
-  }, 1200);
+  });
 }
 
 function resetForm() {
-  intakeForm.reset();
-  successOverlay.classList.remove('active');
+  const form = document.getElementById('clinic-intake-form');
+  const overlay = document.getElementById('form-success');
+  if (form) form.reset();
+  if (overlay) overlay.classList.remove('active');
 }
 
 // Initial UI triggers
 document.addEventListener('DOMContentLoaded', () => {
   highlightNav();
-  updateSimUI();
+  renderActiveStep();
   // Open the Casebook vertical details by default in the temple inspector
   inspectVertical('casebook');
 });
+
+// Mobile Collapsible Toggles
+let casesExpanded = false;
+function toggleCases() {
+  const btn = document.getElementById('toggle-cases-btn');
+  const cards = document.querySelectorAll('.case-study-card.mobile-collapsible');
+  casesExpanded = !casesExpanded;
+  
+  cards.forEach(card => {
+    if (casesExpanded) {
+      card.classList.remove('mobile-hidden');
+    } else {
+      card.classList.add('mobile-hidden');
+    }
+  });
+
+  btn.innerHTML = casesExpanded ? 'Show Less Cases' : 'Show More Cases';
+}
+
+let teamExpanded = false;
+function toggleTeam() {
+  const btn = document.getElementById('toggle-team-btn');
+  const cards = document.querySelectorAll('.team-card.mobile-collapsible');
+  teamExpanded = !teamExpanded;
+  
+  cards.forEach(card => {
+    if (teamExpanded) {
+      card.classList.remove('mobile-hidden');
+    } else {
+      card.classList.add('mobile-hidden');
+    }
+  });
+
+  btn.innerHTML = teamExpanded ? 'Show Less' : 'Show Full Team';
+}

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casebook & Simulator | Wazir IIM Rohtak</title>
+  <link rel="stylesheet" href="../styles.css?v=3.2">
+  <style>
+    .book-container {
+      transform-style: preserve-3d;
+      transform: rotateY(-15deg) rotateX(5deg);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+    .book-container:hover {
+      transform: rotateY(-5deg) rotateX(8deg) scale(1.06) translateY(-10px);
+    }
+    .book-container:hover .book-cover {
+      box-shadow: 20px 20px 40px rgba(0,0,0,0.7), 0 0 40px rgba(0, 229, 255, 0.35), 0 0 80px rgba(0, 229, 255, 0.12);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== -->
+  <header class="header" id="header">
+    <div class="container">
+      <a href="../" class="logo">
+        <img src="../wazir-logo.png" alt="Wazir Logo" class="nav-logo-img">
+        WAZIR<span>IIMR</span>
+      </a>
+            <nav class="nav" id="nav-menu">
+        <a href="../" class="nav-link">Home</a>
+        <a href="../about/" class="nav-link">About</a>
+        <a href="../verticals/" class="nav-link">Verticals</a>
+        <a href="../casebook/" class="nav-link active">Casebook</a>
+        <a href="../apex/" class="nav-link">APEX</a>
+        <a href="../events/" class="nav-link">Events</a>
+        <a href="../team/" class="nav-link">Team</a>
+        <a href="../partner/" class="nav-link">Partner With Us</a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main style="padding-top: 80px;">
+    <!-- ==========================================================================
+         CASEBOOK 4.0 DOWNLOAD SECTION
+         ========================================================================== -->
+    <section class="casebook-showcase" style="padding: 6rem 0; background: radial-gradient(circle at top, rgba(0, 229, 255, 0.05) 0%, transparent 70%);">
+      <div class="container">
+        <div class="casebook-layout" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 4rem; align-items: center;">
+          
+          <!-- Mockup Visual -->
+          <div class="casebook-mockup" style="display: flex; justify-content: center; perspective: 1000px;">
+            <div class="book-container" style="width: 356px; height: 200px; position: relative;">
+              <div class="book-cover" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 0 8px 8px 0; box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.6); z-index: 10; overflow: hidden;">
+                <img src="../Casebook_Coverpage.png" alt="Wazir Casebook 4.0 Cover" style="width: 100%; height: 100%; object-fit: fill; border-radius: 0 8px 8px 0;">
+              </div>
+              <div class="book-pages" style="position: absolute; top: 5px; right: -5px; width: 100%; height: 97%; background: #f1f5f9; border-radius: 0 8px 8px 0; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); z-index: 5;"></div>
+            </div>
+          </div>
+
+          <!-- Description & CTA -->
+          <div class="casebook-info">
+            <span class="hero-club-badge">#4thewin</span>
+            <h1 style="font-family: var(--font-header); font-size: 2.8rem; font-weight: 800; color: var(--text-primary); margin: 1rem 0 1.5rem; line-height: 1.1;">Wazir Casebook 4.0</h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.7; margin-bottom: 2rem;">
+              The official 4th edition case preparation guide compiled by the PR & Publications vertical. Contains structured case interviews, profitability diagnostic templates, market entry frameworks, and Mumbai EV charging guesstimates.
+            </p>
+            <a href="../Wazir_Casebook_4.0.pdf" download="Wazir_Casebook_4.0.pdf" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.8rem;">
+              <svg style="width:18px; height:18px; fill:currentColor;" viewBox="0 0 24 24"><path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/></svg>
+              Download Soft Copy (PDF)
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         INTERACTIVE CONSULTING HUB (CASE SIMULATOR)
+         ========================================================================== -->
+    <section class="hub" id="hub" style="padding: 6rem 0; background: var(--bg-secondary);">
+      <div class="container">
+        <h2 class="section-title text-gradient" style="text-align: center; margin-bottom: 1rem;">Interactive Consulting Hub</h2>
+        <p class="section-subtitle" style="text-align: center; margin-bottom: 4rem;">Put yourself in the shoes of a consultant. Step through logic clarification, framework structure, and calculations.</p>
+        
+        <!-- Embedded Case Simulator -->
+        <div class="simulator-layout" style="max-width: 900px; margin: 0 auto;">
+          <div class="simulator-box" id="simulator-box" style="width: 100%;">
+            <!-- Case Selector Row -->
+            <div class="case-selector-row" style="margin-bottom: 2.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; border-bottom: 1px solid rgba(0, 229, 255, 0.1); padding-bottom: 1.25rem;">
+              <label for="case-select" style="font-family: var(--font-header); font-weight: 600; color: var(--text-primary); font-size: 0.9rem; letter-spacing: 0.05em;">PRACTICE CASE STUDY:</label>
+              <select id="case-select" class="form-select" onchange="changeActiveCase(this.value)" style="width: auto; max-width: 100%; background: var(--bg-secondary); border: 1px solid rgba(0, 229, 255, 0.15); color: var(--text-primary); padding: 0.55rem 2rem 0.55rem 1rem; border-radius: 6px; font-family: var(--font-body); font-size: 0.85rem; cursor: pointer; outline: none; transition: border-color 0.3s ease;">
+                <option value="ev_charging">Case 1: Guesstimate (EV Charging Stations in Mumbai)</option>
+                <option value="q_commerce">Case 2: Profitability (Q-Commerce Dark Store)</option>
+                <option value="ev_battery">Case 3: Market Entry (EV Cell Production)</option>
+              </select>
+            </div>
+
+            <!-- Progress Steps -->
+            <div class="simulator-steps">
+              <div class="sim-step-indicator active" id="sim-step-1-indicator">
+                <div class="step-num">1</div>
+                <div class="step-lbl">Clarify</div>
+              </div>
+              <div class="sim-step-indicator" id="sim-step-2-indicator">
+                <div class="step-num">2</div>
+                <div class="step-lbl">Structure</div>
+              </div>
+              <div class="sim-step-indicator" id="sim-step-3-indicator">
+                <div class="step-num">3</div>
+                <div class="step-lbl">Calculate</div>
+              </div>
+              <div class="sim-step-indicator" id="sim-step-4-indicator">
+                <div class="step-num">4</div>
+                <div class="step-lbl">Review</div>
+              </div>
+            </div>
+            
+            <!-- Challenge Prompt -->
+            <div class="simulator-prompt-box" id="sim-prompt-box">
+              <!-- Injected dynamically -->
+            </div>
+            
+            <!-- Dynamic Step Content Pane -->
+            <div id="sim-dynamic-pane">
+              <!-- Injected dynamically -->
+            </div>
+            
+            <!-- Actions -->
+            <div class="simulator-actions" style="margin-top: 2rem; display: flex; justify-content: flex-end; gap: 1rem;">
+              <button class="btn btn-secondary" id="sim-btn-back" disabled onclick="prevSimStep()">Back</button>
+              <button class="btn btn-primary" id="sim-btn-next" onclick="nextSimStep()">Next Step</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Previous Editions -->
+    <section class="previous-editions" style="padding: 6rem 0;">
+      <div class="container">
+        <h2 class="section-title text-gradient" style="text-align: center; margin-bottom: 4rem;">Previous Editions</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2.5rem;">
+          
+          <div class="glass-card" style="padding: 2.5rem; border: 1px solid rgba(0, 229, 255, 0.08); text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">📘</div>
+            <h4 style="font-family: var(--font-header); font-size: 1.25rem; color: var(--text-primary); margin-bottom: 0.5rem;">Casebook 3.0</h4>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">Our 3rd edition focusing on FMCG supply chain and retail metrics.</p>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Archive File</span>
+          </div>
+
+          <div class="glass-card" style="padding: 2.5rem; border: 1px solid rgba(0, 229, 255, 0.08); text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">📙</div>
+            <h4 style="font-family: var(--font-header); font-size: 1.25rem; color: var(--text-primary); margin-bottom: 0.5rem;">Casebook 2.0</h4>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">Our 2nd edition detailing guest lecture transcripts and interview Prep.</p>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Archive File</span>
+          </div>
+
+          <div class="glass-card" style="padding: 2.5rem; border: 1px solid rgba(0, 229, 255, 0.08); text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">📗</div>
+            <h4 style="font-family: var(--font-header); font-size: 1.25rem; color: var(--text-primary); margin-bottom: 0.5rem;">Casebook 1.0</h4>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">The inaugural edition introducing basic structural MECE trees.</p>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Archive File</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <a href="../" class="logo" style="margin-bottom: 1.5rem;">
+            <img src="../wazir-logo.png" alt="Wazir Logo" class="nav-logo-img">
+            WAZIR<span>IIMR</span>
+          </a>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 2rem;">
+            Strategy & Consulting Club of IIM Rohtak. Scale up consulting culture on campus.
+          </p>
+        </div>
+        
+                        <div class="footer-links-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="../">Home</a></li>
+            <li><a href="../about/">About Us</a></li>
+            <li><a href="../verticals/">Verticals</a></li>
+            <li><a href="../casebook/">Casebook</a></li>
+            <li><a href="../apex/">APEX Clinic</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-links-col">
+          <h4>Core Activities</h4>
+          <ul>
+            <li><a href="../events/">Events</a></li>
+            <li><a href="../team/">Team</a></li>
+            <li><a href="../partner/">Partner With Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>External Links</h4>
+          <ul>
+            <li><a href="https://www.linkedin.com/company/wazir-snc-iimrohtak/posts/?feedView=all" target="_blank">LinkedIn Page</a></li>
+            <li><a href="https://www.instagram.com/wazir_iimrohtak/" target="_blank">Instagram</a></li>
+            <li><a href="https://iimrohtak.ac.in" target="_blank">IIM Rohtak Official</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <div class="footer-copyright" style="text-align: center;">
+          © 2026 Wazir SNC IIM Rohtak. All rights reserved.
+        </div>
+        <div class="footer-socials">
+          <a href="https://www.linkedin.com/company/wazir-snc-iimrohtak/posts/?feedView=all" class="footer-social-link" target="_blank">LinkedIn</a>
+          <a href="https://www.instagram.com/wazir_iimrohtak/" class="footer-social-link" target="_blank">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../app.js?v=3.2"></script>
+</body>
+</html>

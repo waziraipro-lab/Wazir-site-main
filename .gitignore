@@ -5,3 +5,7 @@ node_modules/
 .DS_Store
 # Build artifacts
 dist/
+.vercel
+wazir-site-new/
+wazir-site-parent/
+Wazir Deck 2026.pdf

@@ -1,0 +1,20 @@
+# Ignore node files
+node-v20.11.0-darwin-x64/
+node.tar.gz
+node_modules/
+
+# Ignore tunneling and other binaries
+cloudflared
+cloudflared.tar.gz
+ngrok
+ngrok.zip
+
+# Ignore local server
+server.py
+
+# Ignore clone folders created during investigation
+wazir-site-new/
+wazir-site-parent/
+
+# Ignore non-website large files
+Wazir Deck 2026.pdf

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verticals | Wazir IIM Rohtak</title>
+  <link rel="stylesheet" href="../styles.css?v=3.2">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== -->
+  <header class="header" id="header">
+    <div class="container">
+      <a href="../" class="logo">
+        <img src="../wazir-logo.png" alt="Wazir Logo" class="nav-logo-img">
+        WAZIR<span>IIMR</span>
+      </a>
+            <nav class="nav" id="nav-menu">
+        <a href="../" class="nav-link">Home</a>
+        <a href="../about/" class="nav-link">About</a>
+        <a href="../verticals/" class="nav-link active">Verticals</a>
+        <a href="../casebook/" class="nav-link">Casebook</a>
+        <a href="../apex/" class="nav-link">APEX</a>
+        <a href="../events/" class="nav-link">Events</a>
+        <a href="../team/" class="nav-link">Team</a>
+        <a href="../partner/" class="nav-link">Partner With Us</a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main style="padding-top: 80px;">
+    <!-- ==========================================================================
+         THE HOUSE OF WAZIR (VERTICALS ARCHITECTURE)
+         ========================================================================== -->
+    <section class="verticals-temple" id="verticals" style="padding: 6rem 0;">
+      <div class="container">
+        <h2 class="section-title text-gradient" style="text-align: center; margin-bottom: 1.5rem;">The House of Wazir</h2>
+        <p class="section-subtitle" style="text-align: center; margin-bottom: 4rem;">Perfectly balanced, as all things should be.</p>
+        
+        <p style="text-align: center; max-width: 800px; margin: -2rem auto 3.5rem; font-size: 1.05rem; font-weight: 300; line-height: 1.6; color: var(--text-secondary);">
+          The six verticals are the pillars of commitment and strength that hold the colosseum - Wazir together. The Knowledge Vertical serves as the foundation, while the Public Relations Vertical — the "Mother of Verticals" — illuminates their presence.
+        </p>
+
+        <!-- Colosseum Architectural Temple Grid -->
+        <div class="temple-container">
+          <!-- Roof Pediment -->
+          <div class="temple-roof">
+            <div class="temple-roof-content">
+              <svg viewBox="0 0 24 24"><path d="M12 3L1 9H4V21H20V9H23L12 3M12 7.7C13.8 7.7 15.3 9.2 15.3 11C15.3 12.8 13.8 14.3 12 14.3C10.2 14.3 8.7 12.8 8.7 11C8.7 9.2 10.2 7.7 12 7.7M18 19H6V11C6 10.7 6.1 10.4 6.3 10.2L12 5.5L17.7 10.2C17.9 10.4 18 10.7 18 11V19Z"/></svg>
+              House of Wazir
+            </div>
+          </div>
+          <!-- Beam Architrave -->
+          <div class="temple-architrave">~ Strategy & Consulting ~</div>
+          
+          <!-- Pillars Column Grid -->
+          <div class="temple-columns-grid">
+            <!-- Pillar 1: Casebook -->
+            <div class="temple-pillar" onclick="inspectVertical('casebook', this)">
+              <div class="pillar-cap"></div>
+              <div class="pillar-shaft">
+                <div class="pillar-shaft-title">Casebook</div>
+              </div>
+              <div class="pillar-base"></div>
+            </div>
+            
+            <!-- Pillar 2: Consulting Clinic -->
+            <div class="temple-pillar" onclick="inspectVertical('clinic', this)">
+              <div class="pillar-cap"></div>
+              <div class="pillar-shaft">
+                <div class="pillar-shaft-title">Consulting Clinic</div>
+              </div>
+              <div class="pillar-base"></div>
+            </div>
+            
+            <!-- Pillar 3: Editorial -->
+            <div class="temple-pillar" onclick="inspectVertical('editorial', this)">
+              <div class="pillar-cap"></div>
+              <div class="pillar-shaft">
+                <div class="pillar-shaft-title">Editorial</div>
+              </div>
+              <div class="pillar-base"></div>
+            </div>
+            
+            <!-- Pillar 4: Events -->
+            <div class="temple-pillar" onclick="inspectVertical('events', this)">
+              <div class="pillar-cap"></div>
+              <div class="pillar-shaft">
+                <div class="pillar-shaft-title">Events</div>
+              </div>
+              <div class="pillar-base"></div>
+            </div>
+            
+            <!-- Pillar 5: External Relations -->
+            <div class="temple-pillar" onclick="inspectVertical('relations', this)">
+              <div class="pillar-cap"></div>
+              <div class="pillar-shaft">
+                <div class="pillar-shaft-title">External Relations</div>
+              </div>
+              <div class="pillar-base"></div>
+            </div>
+            
+            <!-- Pillar 6: Public Relations -->
+            <div class="temple-pillar" onclick="inspectVertical('pr', this)">
+              <div class="pillar-cap"></div>
+              <div class="pillar-shaft">
+                <div class="pillar-shaft-title">Public Relations</div>
+              </div>
+              <div class="pillar-base"></div>
+            </div>
+          </div>
+          
+          <!-- Stylobate Base Steps -->
+          <div class="temple-stylobate" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.35rem; padding: 0.8rem 0; letter-spacing: normal;">
+            <span style="font-weight: 700; letter-spacing: 0.22em; font-size: 1.15rem;">~ Knowledge ~</span>
+            <span style="font-size: 0.8rem; font-weight: 400; color: var(--text-muted); font-style: italic; letter-spacing: 0.5px; text-transform: none;">"Knowledge is the foundation of everything that we do"</span>
+          </div>
+        </div>
+
+        <!-- Dynamic Inspector Panel -->
+        <div class="vertical-detail-container" id="vertical-detail-panel" style="margin-top: 4rem;">
+          <div class="glass-card vertical-detail-card" style="text-align: center; padding: 3rem; border: 1px solid rgba(0, 229, 255, 0.1);">
+            <svg style="width: 50px; height: 50px; fill: var(--brand-accent); opacity: 0.7; margin-bottom: 1.5rem; margin-left: auto; margin-right: auto;" viewBox="0 0 24 24">
+              <path d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2ZM13 17H11V11H13V17ZM13 9H11V7H13V9Z"/>
+            </svg>
+            <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Interactive Operations Inspector</h3>
+            <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto;">Click or tap on any of the temple pillars above to examine the detailed vertical operations, publications, and impact metrics.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <a href="../" class="logo" style="margin-bottom: 1.5rem;">
+            <img src="../wazir-logo.png" alt="Wazir Logo" class="nav-logo-img">
+            WAZIR<span>IIMR</span>
+          </a>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 2rem;">
+            Strategy & Consulting Club of IIM Rohtak. Scale up consulting culture on campus.
+          </p>
+        </div>
+        
+                        <div class="footer-links-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="../">Home</a></li>
+            <li><a href="../about/">About Us</a></li>
+            <li><a href="../verticals/">Verticals</a></li>
+            <li><a href="../casebook/">Casebook</a></li>
+            <li><a href="../apex/">APEX Clinic</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-links-col">
+          <h4>Core Activities</h4>
+          <ul>
+            <li><a href="../events/">Events</a></li>
+            <li><a href="../team/">Team</a></li>
+            <li><a href="../partner/">Partner With Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>External Links</h4>
+          <ul>
+            <li><a href="https://www.linkedin.com/company/wazir-snc-iimrohtak/posts/?feedView=all" target="_blank">LinkedIn Page</a></li>
+            <li><a href="https://www.instagram.com/wazir_iimrohtak/" target="_blank">Instagram</a></li>
+            <li><a href="https://iimrohtak.ac.in" target="_blank">IIM Rohtak Official</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <div class="footer-copyright" style="text-align: center;">
+          © 2026 Wazir SNC IIM Rohtak. All rights reserved.
+        </div>
+        <div class="footer-socials">
+          <a href="https://www.linkedin.com/company/wazir-snc-iimrohtak/posts/?feedView=all" class="footer-social-link" target="_blank">LinkedIn</a>
+          <a href="https://www.instagram.com/wazir_iimrohtak/" class="footer-social-link" target="_blank">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../app.js?v=3.2"></script>
+</body>
+</html>
