@@ -99,9 +99,13 @@
             <div class="case-selector-row" style="margin-bottom: 2.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; border-bottom: 1px solid rgba(0, 229, 255, 0.1); padding-bottom: 1.25rem;">
               <label for="case-select" style="font-family: var(--font-header); font-weight: 600; color: var(--text-primary); font-size: 0.9rem; letter-spacing: 0.05em;">PRACTICE CASE STUDY:</label>
               <select id="case-select" class="form-select" onchange="changeActiveCase(this.value)" style="width: auto; max-width: 100%; background: var(--bg-secondary); border: 1px solid rgba(0, 229, 255, 0.15); color: var(--text-primary); padding: 0.55rem 2rem 0.55rem 1rem; border-radius: 6px; font-family: var(--font-body); font-size: 0.85rem; cursor: pointer; outline: none; transition: border-color 0.3s ease;">
-                <option value="ev_charging">Case 1: Guesstimate (EV Charging Stations in Mumbai)</option>
-                <option value="q_commerce">Case 2: Profitability (Q-Commerce Dark Store)</option>
-                <option value="ev_battery">Case 3: Market Entry (EV Cell Production)</option>
+                <optgroup label="Guesstimates" style="background: var(--bg-primary); color: var(--brand-accent);">
+                  <option value="ev_charging" style="color: var(--text-primary);">Case 1: Guesstimate (EV Charging Stations in Mumbai)</option>
+                </optgroup>
+                <optgroup label="Framework Case Studies" style="background: var(--bg-primary); color: var(--brand-accent);">
+                  <option value="q_commerce" style="color: var(--text-primary);">Case 2: Profitability (Q-Commerce Dark Store)</option>
+                  <option value="ev_battery" style="color: var(--text-primary);">Case 3: Market Entry (EV Cell Production)</option>
+                </optgroup>
               </select>
             </div>
 

@@ -111,17 +111,17 @@ const verticalsData = {
     desc: "Our annual Consulting Casebook is the Bible of preparation at IIM Rohtak. Compiled and reviewed by alumni working in consulting roles, it connects students to an in-house consulting network.",
     bullets: [
       { title: "50+ Cases", text: "Curated real interview cases cracked at top strategy firms." },
-      { title: "30+ Guesstimates & 40+ Frameworks", text: "Step-by-step methodologies and mathematical trees." },
+      { title: "40+ Frameworks", text: "MECE structures, profitability diagnostic templates, and market entry frameworks." },
       { title: "20+ Industry Overviews", text: "Deep briefings covering key sectors and value chains." },
-      { title: "800+ Alumni Network", text: "Connecting the batch with seniors in top global practices." }
+      { title: "30+ Guesstimates", text: "Calculations, demand/supply sizing, and step-by-step math trees." }
     ]
   },
   'clinic': {
     title: 'APEX - The Consulting Clinic',
     subtitle: "You don't learn strategy from slides — you learn it by solving problems.",
-    desc: "Our APEX pro-bono consulting practice. We connect student teams with small-and-medium enterprises (SMEs) and government departments to deliver actionable strategic roadmaps.",
+    desc: "Our APEX pro-bono consulting practice. We connect student teams with high growth clients and government departments to deliver actionable strategic roadmaps.",
     bullets: [
-      { title: "Client Sourcing & Audit", text: "Identify high-potential SMEs and govt. bodies and assess business models." },
+      { title: "Client Sourcing & Audit", text: "Identify high-potential high growth clients and govt. bodies and assess business models." },
       { title: "In-Depth Diagnosis", text: "Conduct business analysis through site visits, interviews, and audits." },
       { title: "Expert Collaborations", text: "Partner with industry leaders to formulate tactical GTM and growth plans." },
       { title: "Impact & Execution Tracking", text: "Monitor implementation steps and record tangible client improvements." }
@@ -154,7 +154,7 @@ const verticalsData = {
     desc: "We forge impactful collaborations and real-world experiences, gathering live projects and boutique knowledge sessions for the batch.",
     bullets: [
       { title: "Live Projects Sourcing", text: "Securing exclusive internships and project runs for Wazir and batch coordinates." },
-      { title: "9K Average Stipend", text: "Delivering value-added internships with tangible student compensation." },
+      { title: "18,000 Average Stipend", text: "Delivering value-added internships with tangible student compensation." },
       { title: "Knowledge Sessions", text: "Inviting full-time consultants from top boutiques and management firms." },
       { title: "Campus Connect", text: "Facilitating inter-IIM and IIT knowledge exchanges and joint workshops." }
     ]
