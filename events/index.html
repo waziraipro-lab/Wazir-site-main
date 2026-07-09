@@ -128,46 +128,196 @@
     .photo-gallery {
       padding: 5rem 0;
       background: var(--bg-secondary);
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-
-    .gallery-img {
-      border-radius: 12px;
       overflow: hidden;
-      border: 1px solid rgba(0,229,255,0.08);
+    }
+
+    /* Filter Pills */
+    .gallery-filters {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-pill {
+      background: transparent;
+      border: 1px solid rgba(0, 229, 255, 0.2);
+      color: var(--text-secondary);
+      padding: 0.6rem 1.4rem;
+      border-radius: 30px;
+      font-family: var(--font-header);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
       transition: var(--transition-smooth);
+    }
+
+    .filter-pill:hover {
+      border-color: var(--brand-accent);
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.15);
+      color: var(--text-primary);
+    }
+
+    .filter-pill.active {
+      background: linear-gradient(135deg, var(--brand-accent), var(--brand-blue));
+      border-color: transparent;
+      color: var(--bg-primary);
+      box-shadow: 0 5px 15px rgba(0, 229, 255, 0.3);
+    }
+
+    /* 3D Carousel */
+    .gallery-carousel-container {
       position: relative;
-    }
-
-    .gallery-img:hover {
-      border-color: rgba(0,229,255,0.3);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-      transform: scale(1.02);
-    }
-
-    .gallery-img img {
+      height: 420px;
       width: 100%;
-      height: 280px;
+      max-width: 800px;
+      margin: 0 auto;
+      perspective: 1200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gallery-carousel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+    }
+
+    .gallery-card {
+      position: absolute;
+      width: 320px;
+      height: 400px;
+      left: calc(50% - 160px);
+      top: calc(50% - 200px);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: var(--glass-bg);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 0;
+      transform: translate3d(0, 0, -300px);
+    }
+
+    /* Card Positions */
+    .gallery-card.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 10;
+      transform: translate3d(0, 0, 0) scale(1.1);
+      border-color: rgba(0, 229, 255, 0.35);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 229, 255, 0.15);
+    }
+
+    .gallery-card.prev {
+      opacity: 0.55;
+      pointer-events: auto;
+      z-index: 5;
+      transform: translate3d(-240px, 0, -100px) scale(0.85);
+    }
+
+    .gallery-card.next {
+      opacity: 0.55;
+      pointer-events: auto;
+      z-index: 5;
+      transform: translate3d(240px, 0, -100px) scale(0.85);
+    }
+
+    .gallery-card.far-prev {
+      opacity: 0.15;
+      z-index: 2;
+      transform: translate3d(-380px, 0, -200px) scale(0.7);
+    }
+
+    .gallery-card.far-next {
+      opacity: 0.15;
+      z-index: 2;
+      transform: translate3d(380px, 0, -200px) scale(0.7);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    .gallery-caption {
+    .gallery-card-caption {
       position: absolute;
       bottom: 0;
       left: 0;
       width: 100%;
-      background: linear-gradient(to top, rgba(3,10,22,0.9), transparent);
-      color: var(--text-secondary);
-      font-size: 0.85rem;
-      padding: 1.5rem 1rem 0.75rem;
+      background: linear-gradient(to top, rgba(3, 10, 22, 0.95) 0%, rgba(3, 10, 22, 0.7) 60%, transparent 100%);
+      color: var(--text-primary);
+      padding: 2.5rem 1.5rem 1.5rem;
       font-family: var(--font-header);
+      text-align: left;
+      font-size: 0.95rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .gallery-card.active .gallery-card-caption {
+      opacity: 1;
+    }
+
+    /* Controls */
+    .gallery-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .control-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(0, 229, 255, 0.2);
+      color: var(--text-secondary);
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .control-btn:hover {
+      background: rgba(0, 229, 255, 0.05);
+      border-color: var(--brand-accent);
+      color: var(--text-primary);
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 768px) {
+      .gallery-carousel-container {
+        height: 340px;
+      }
+      .gallery-card {
+        width: 250px;
+        height: 320px;
+        left: calc(50% - 125px);
+        top: calc(50% - 160px);
+      }
+      .gallery-card.prev {
+        transform: translate3d(-150px, 0, -80px) scale(0.8);
+      }
+      .gallery-card.next {
+        transform: translate3d(150px, 0, -80px) scale(0.8);
+      }
+      .gallery-card.far-prev, .gallery-card.far-next {
+        display: none;
+      }
     }
 
     .legacy-grid {
@@ -388,28 +538,31 @@
     </section>
 
     <!-- Photo Gallery -->
-    <section class="photo-gallery">
-      <div class="container">
-        <h2 class="section-title text-gradient" style="text-align: center;">Event Gallery</h2>
-        <p class="section-subtitle">Behind the strategy — moments from Wazir events.</p>
+    <section class="photo-gallery" style="background: var(--bg-secondary); padding: 6rem 0; overflow: hidden;">
+      <div class="container" style="max-width: 1000px; text-align: center;">
+        <span style="display: block; font-size: 0.8rem; font-family: var(--font-header); font-weight: 700; color: var(--brand-accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem;">Behind the strategy</span>
+        <h2 class="section-title text-gradient" style="text-align: center; margin-bottom: 0.5rem;">Events Gallery</h2>
+        <p class="section-subtitle" style="margin-bottom: 3rem;">Behind the strategy — moments from Wazir events.</p>
 
-        <div class="gallery-grid">
-          <div class="gallery-img">
-            <img src="event-classroom.jpg" alt="Participants at a Wazir event session">
-            <div class="gallery-caption">COTY — Participant cohort, IIM Rohtak</div>
+        <!-- Filter Pills -->
+        <div class="gallery-filters">
+          <button class="filter-pill active" onclick="filterGallery('all', this)">All</button>
+          <button class="filter-pill" onclick="filterGallery('coty', this)">COTY Flagship</button>
+          <button class="filter-pill" onclick="filterGallery('legacy', this)">Legacy Series</button>
+          <button class="filter-pill" onclick="filterGallery('workshops', this)">Workshops &amp; Sessions</button>
+        </div>
+
+        <!-- 3D Carousel Viewport -->
+        <div class="gallery-carousel-container">
+          <div class="gallery-carousel" id="gallery-carousel-viewport">
+            <!-- Dynamically populated via JS -->
           </div>
-          <div class="gallery-img">
-            <img src="event-got-map.jpg" alt="Impostors Gambit — Game of Thrones strategy board event">
-            <div class="gallery-caption">Impostors Gambit — Westeros Strategy Board</div>
-          </div>
-          <div class="gallery-img">
-            <img src="event-wide-classroom.jpg" alt="Wazir event — full auditorium view">
-            <div class="gallery-caption">COTY Season — Wazir team &amp; participants</div>
-          </div>
-          <div class="gallery-img">
-            <img src="event-coty-winners.jpg" alt="Consultant of the Year 2026 — winner announcement">
-            <div class="gallery-caption">Consultant of the Year 2026 — Winner Moment</div>
-          </div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <div class="gallery-controls">
+          <button class="control-btn" onclick="shiftGallery(-1)" aria-label="Previous image">←</button>
+          <button class="control-btn" onclick="shiftGallery(1)" aria-label="Next image">→</button>
         </div>
       </div>
     </section>
@@ -484,6 +637,98 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    // 3D Carousel Data
+    const galleryItems = [
+      { id: 1, src: "event-coty.png", caption: "COTY — Flagship casing battle launch", category: "coty" },
+      { id: 2, src: "event-coty-winners.jpg", caption: "Consultant of the Year — Winner Moment", category: "coty" },
+      { id: 3, src: "event-wide-classroom.jpg", caption: "COTY Cohort — Auditorium interaction session", category: "coty" },
+      { id: 4, src: "event-got-map.jpg", caption: "Impostors Gambit — Westeros Strategy Board", category: "legacy" },
+      { id: 5, src: "event-map.png", caption: "Impostors Gambit — Strategic gameboard session", category: "legacy" },
+      { id: 6, src: "event-classroom.jpg", caption: "Workshops — Tactical casing masterclass", category: "workshops" },
+      { id: 7, src: "event-audience.png", caption: "Passion Tracks — Audience cohort interaction", category: "workshops" }
+    ];
+
+    let filteredItems = [...galleryItems];
+    let activeIndex = 0;
+
+    function renderCarousel() {
+      const viewport = document.getElementById("gallery-carousel-viewport");
+      if (!viewport) return;
+
+      viewport.innerHTML = "";
+      
+      if (filteredItems.length === 0) {
+        viewport.innerHTML = `<p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 3rem;">No moments found for this category.</p>`;
+        return;
+      }
+
+      filteredItems.forEach((item, index) => {
+        let positionClass = "hidden";
+        
+        // Circular index calculation for active, prev, next, far-prev, far-next
+        const count = filteredItems.length;
+        const diff = (index - activeIndex + count) % count;
+
+        if (diff === 0) {
+          positionClass = "active";
+        } else if (diff === 1 || (count === 2 && diff === 1)) {
+          positionClass = "next";
+        } else if (diff === count - 1) {
+          positionClass = "prev";
+        } else if (diff === 2) {
+          positionClass = "far-next";
+        } else if (diff === count - 2) {
+          positionClass = "far-prev";
+        }
+
+        const card = document.createElement("div");
+        card.className = `gallery-card ${positionClass}`;
+        card.setAttribute("onclick", `selectCard(${index})`);
+        
+        card.innerHTML = `
+          <img src="${item.src}" alt="${item.caption}">
+          <div class="gallery-card-caption">${item.caption}</div>
+        `;
+        
+        viewport.appendChild(card);
+      });
+    }
+
+    function selectCard(index) {
+      activeIndex = index;
+      renderCarousel();
+    }
+
+    function shiftGallery(direction) {
+      if (filteredItems.length === 0) return;
+      activeIndex = (activeIndex + direction + filteredItems.length) % filteredItems.length;
+      renderCarousel();
+    }
+
+    function filterGallery(category, button) {
+      // Toggle active filter pill
+      const pills = document.querySelectorAll(".filter-pill");
+      pills.forEach(p => p.classList.remove("active"));
+      button.classList.add("active");
+
+      // Filter data
+      if (category === "all") {
+        filteredItems = [...galleryItems];
+      } else {
+        filteredItems = galleryItems.filter(item => item.category === category);
+      }
+
+      activeIndex = 0;
+      renderCarousel();
+    }
+
+    // Initial load
+    document.addEventListener("DOMContentLoaded", () => {
+      renderCarousel();
+    });
+  </script>
 
   <script src="../app.js?v=3.2"></script>
 </body>
