@@ -108,7 +108,7 @@ const verticalsData = {
   'casebook': {
     title: 'Casebook Vertical',
     subtitle: "Every great strategy starts with a question. A casebook just hands you the right ones to ask!",
-    desc: "Our annual Consulting Casebook is the Bible of preparation at IIM Rohtak. Compiled and reviewed by alumni working in consulting roles, it connects students to an in-house consulting network.",
+    desc: "Our annual Consulting Casebook is the primary preparation guide at IIM Rohtak, offering comprehensive casing resources, mock transcripts, and industry-deep dives to build robust analytical skills.",
     bullets: [
       { title: "50+ Cases", text: "Curated real interview cases cracked at top strategy firms." },
       { title: "40+ Frameworks", text: "MECE structures, profitability diagnostic templates, and market entry frameworks." },
