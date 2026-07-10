@@ -224,7 +224,7 @@ function inspectVertical(id, clickedEl) {
 
   const isMobile = window.innerWidth <= 768;
 
-  if (isMobile && clickedPillar) {
+  if (isMobile && clickedTarget) {
     // Remove any existing inline panel
     const existingInline = document.querySelector('.mobile-inline-panel');
     if (existingInline) existingInline.remove();
@@ -234,7 +234,7 @@ function inspectVertical(id, clickedEl) {
     inlineWrapper.className = 'mobile-inline-panel';
     inlineWrapper.style.cssText = 'width:100%; margin: 0.75rem 0 1rem; order: 999;';
     inlineWrapper.innerHTML = panelHtml;
-    clickedPillar.insertAdjacentElement('afterend', inlineWrapper);
+    clickedTarget.insertAdjacentElement('afterend', inlineWrapper);
 
     // Scroll to the inline panel smoothly
     setTimeout(() => {
