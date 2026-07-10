@@ -2692,7 +2692,7 @@ p {
     font-weight: 700 !important;
     color: var(--brand-accent) !important;
     letter-spacing: normal !important;
-    text-transform: none !important;
+    text-transform: uppercase !important;
   }
   .temple-architrave::after {
     content: '➔';
@@ -2903,6 +2903,7 @@ p {
     margin-bottom: 0.5rem;
     color: var(--brand-accent) !important;
     text-shadow: 0 0 5px rgba(0,229,255,0.4) !important;
+    text-transform: uppercase !important;
   }
   .team-grid {
     grid-template-columns: repeat(2, 1fr);
