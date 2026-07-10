@@ -942,17 +942,35 @@ p {
   background: linear-gradient(90deg, var(--bg-tertiary), var(--brand-blue), var(--bg-tertiary));
   border: 1px solid var(--border-color);
   border-bottom: 3px solid var(--brand-accent);
-  padding: 0.85rem;
+  padding: 0.75rem 0;
   text-align: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  letter-spacing: normal;
+}
+
+.architrave-title {
   font-family: var(--font-header);
   font-weight: 700;
   letter-spacing: 0.22em;
-  font-size: 1rem;
+  font-size: 1.15rem;
   color: var(--brand-accent);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.architrave-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  font-style: italic;
+  letter-spacing: 0.5px;
+  text-transform: none;
 }
 
 .temple-architrave:hover {
@@ -2649,22 +2667,43 @@ p {
   
   /* House of Wazir Temple Mobile Stacking */
   .temple-roof, .temple-stylobate, .pillar-cap, .pillar-base {
-    display: none;
+    display: none !important;
+  }
+  .architrave-deco, .architrave-subtitle {
+    display: none !important;
   }
   .temple-architrave {
     display: block !important;
-    width: 100%;
-    margin-bottom: 1.5rem;
-    padding: 2rem 1.5rem !important;
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 2rem !important;
     border-radius: 12px !important;
     background: var(--bg-tertiary) !important;
     border: 1px solid var(--glass-border) !important;
-    border-bottom: 3px solid var(--brand-accent) !important;
+    border-bottom: 1px solid var(--glass-border) !important;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
-    text-align: center;
+    text-align: center !important;
+    margin-bottom: 1.5rem !important;
     cursor: pointer;
-    font-size: 1.3rem !important;
-    letter-spacing: 0.1em !important;
+  }
+  .temple-architrave .architrave-title {
+    font-family: var(--font-header) !important;
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    color: var(--brand-accent) !important;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+  }
+  .temple-architrave::after {
+    content: '➔';
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--brand-accent);
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+  }
+  .temple-architrave:hover::after {
+    transform: translateX(5px);
   }
   .temple-columns-grid {
     grid-template-columns: 1fr;
@@ -2849,21 +2888,21 @@ p {
     background: transparent;
     border: none;
   }
-  .pillar-shaft {
+  .pillar-shaft, .temple-architrave {
     width: 100%;
     min-height: auto;
     writing-mode: horizontal-tb;
-    padding: 1.5rem;
+    padding: 1.5rem !important;
     border-radius: 12px;
     background: var(--bg-tertiary);
     border: 1px solid var(--glass-border);
   }
-  .pillar-shaft-title {
+  .pillar-shaft-title, .temple-architrave .architrave-title {
     writing-mode: horizontal-tb;
-    font-size: 1.2rem;
+    font-size: 1.2rem !important;
     margin-bottom: 0.5rem;
-    color: var(--brand-accent);
-    text-shadow: 0 0 5px rgba(0,229,255,0.4);
+    color: var(--brand-accent) !important;
+    text-shadow: 0 0 5px rgba(0,229,255,0.4) !important;
   }
   .team-grid {
     grid-template-columns: repeat(2, 1fr);
