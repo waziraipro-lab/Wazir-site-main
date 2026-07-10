@@ -915,3 +915,18 @@ function toggleTeam() {
 
   btn.innerHTML = teamExpanded ? 'Show Less' : 'Show Full Team';
 }
+
+// Click telemetry for document downloads
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('a[download]').forEach(link => {
+    link.addEventListener('click', () => {
+      const fileName = link.getAttribute('download') || link.href.split('/').pop();
+      console.log(`[Telemetry] Download initiated: ${fileName}`);
+      try {
+        const stats = JSON.parse(localStorage.getItem('wazir_downloads') || '{}');
+        stats[fileName] = (stats[fileName] || 0) + 1;
+        localStorage.setItem('wazir_downloads', JSON.stringify(stats));
+      } catch (err) {}
+    });
+  });
+});
