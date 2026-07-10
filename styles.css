@@ -1703,6 +1703,8 @@ p {
   display: flex;
   align-items: center;
   gap: 1rem;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .sim-choice-btn:hover {
@@ -1740,6 +1742,7 @@ p {
   font-size: 0.75rem;
   font-weight: 700;
   transition: var(--transition-fast);
+  flex-shrink: 0;
 }
 
 .sim-choice-btn.selected .choice-marker {
