@@ -549,6 +549,12 @@
         const form = document.getElementById('clinic-intake-form');
         if (overlay) overlay.classList.add('active');
         if (form) form.style.display = 'none';
+        
+        // Scroll to success card to prevent page reloading at the top
+        if (overlay) {
+          overlay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
         // Clean URL without reloading
         history.replaceState({}, '', '/apex/');
       });

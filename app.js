@@ -844,7 +844,10 @@ function handleFormSubmit(event) {
     try { json = await response.json(); } catch(e) {}
     const overlay = form.parentElement.querySelector('#form-success') || document.getElementById('form-success');
     if (response.ok && json.success !== "false") {
-      if (overlay) overlay.classList.add('active');
+      if (overlay) {
+        overlay.classList.add('active');
+        overlay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     } else {
       alert("Submission failed: " + (json.message || "Please try again or email snc@iimrohtak.ac.in directly."));
     }
