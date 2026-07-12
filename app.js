@@ -889,7 +889,7 @@ async function loadDynamicContent() {
   const teamGrid = document.getElementById('team-members-grid');
   if (teamGrid) {
     try {
-      const response = await fetch('../data/team.json');
+      const response = await fetch('/data/team.json');
       const team = await response.json();
       teamGrid.innerHTML = team.map(member => `
         <div class="team-card">
@@ -915,7 +915,7 @@ async function loadDynamicContent() {
   const platContainer = document.getElementById('platforms-logos-container');
   if (instContainer && platContainer) {
     try {
-      const response = await fetch('data/partners.json');
+      const response = await fetch('/data/partners.json');
       const data = await response.json();
       
       instContainer.innerHTML = data.institutes.map(p => `
@@ -948,7 +948,7 @@ async function loadDynamicContent() {
   const casebooksGrid = document.getElementById('previous-casebooks-grid');
   if (casebooksGrid) {
     try {
-      const response = await fetch('../data/casebooks.json');
+      const response = await fetch('/data/casebooks.json');
       const data = await response.json();
       casebooksGrid.innerHTML = data.map(c => `
         <div class="glass-card" style="padding: 2.5rem; border: 1px solid rgba(0, 229, 255, 0.08); text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
@@ -978,7 +978,7 @@ async function loadDynamicContent() {
   const reportsGrid = document.getElementById('previous-reports-grid');
   if (reportsGrid) {
     try {
-      const response = await fetch('../data/reports.json');
+      const response = await fetch('/data/reports.json');
       const data = await response.json();
       reportsGrid.innerHTML = data.map(r => `
         <div class="glass-card" style="padding: 2.5rem; border: 1px solid rgba(0, 229, 255, 0.08); text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
