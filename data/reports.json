@@ -1,0 +1,18 @@
+[
+  {
+    "title": "APEX Report 2025",
+    "description": "Our annual pro-bono consulting clinic review summarizing operations and engagements of 2025.",
+    "cover": "images/APEX_Coverpage_2025.webp",
+    "pdf": "../APEX_Report_2025.pdf",
+    "width": 150,
+    "height": 210
+  },
+  {
+    "title": "APEX Report 2024",
+    "description": "The report outlining Wazir's initial corporate clinics and local consulting projects in 2024.",
+    "cover": "images/APEX_Coverpage_2024.webp",
+    "pdf": "../APEX_Report_2024.pdf",
+    "width": 150,
+    "height": 210
+  }
+]

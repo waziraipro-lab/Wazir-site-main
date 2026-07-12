@@ -800,21 +800,31 @@ function handleFormSubmit(event) {
 
   const submitBtn = form.querySelector('button[type="submit"]');
   if (!submitBtn) return;
-  const originalText = submitBtn.innerHTML;
   
   submitBtn.disabled = true;
-  submitBtn.innerHTML = `
-    <svg style="width:16px; height:16px; fill:currentColor; animation: spin 1s linear infinite; margin-right:0.5rem;" viewBox="0 0 24 24">
-      <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"/>
-    </svg> Submitting Brief...`;
+  submitBtn.classList.add('btn-loading');
 
-  const name = form.querySelector('#form-name').value;
-  const email = form.querySelector('#form-email').value;
-  const org = form.querySelector('#form-org').value;
-  const reason = form.querySelector('#form-reason').value;
-  const message = form.querySelector('#form-message').value;
+  const nameEl = form.querySelector('#form-name');
+  const emailEl = form.querySelector('#form-email');
+  const orgEl = form.querySelector('#form-org');
+  const messageEl = form.querySelector('#form-message');
 
-  const industry = form.querySelector('#apex-client-industry') ? form.querySelector('#apex-client-industry').value : '';
+  if (!nameEl || !emailEl || !orgEl || !messageEl) {
+    submitBtn.disabled = false;
+    submitBtn.classList.remove('btn-loading');
+    return;
+  }
+
+  const name = nameEl.value;
+  const email = emailEl.value;
+  const org = orgEl.value;
+  const message = messageEl.value;
+
+  const reasonEl = form.querySelector('#form-reason');
+  const reason = reasonEl ? reasonEl.value : (form.querySelector('input[name="inquiry_type"]') ? form.querySelector('input[name="inquiry_type"]').value : 'Consulting Inquiry');
+
+  const industryEl = form.querySelector('#apex-client-industry');
+  const industry = industryEl ? industryEl.value : '';
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 15000);
@@ -848,6 +858,7 @@ function handleFormSubmit(event) {
         overlay.classList.add('active');
         overlay.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
+      form.reset();
     } else {
       alert("Submission failed: " + (json.message || "Please try again or email snc@iimrohtak.ac.in directly."));
     }
@@ -862,7 +873,7 @@ function handleFormSubmit(event) {
   })
   .finally(() => {
     submitBtn.disabled = false;
-    submitBtn.innerHTML = originalText;
+    submitBtn.classList.remove('btn-loading');
   });
 }
 
@@ -873,12 +884,134 @@ function resetForm() {
   if (overlay) overlay.classList.remove('active');
 }
 
+async function loadDynamicContent() {
+  // Load Team members if on the team page
+  const teamGrid = document.getElementById('team-members-grid');
+  if (teamGrid) {
+    try {
+      const response = await fetch('../data/team.json');
+      const team = await response.json();
+      teamGrid.innerHTML = team.map(member => `
+        <div class="team-card">
+          <div class="team-avatar-container">
+            <div class="team-avatar">
+              <svg viewBox="0 0 24 24"><path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/></svg>
+            </div>
+          </div>
+          <h3>${member.name}</h3>
+          <div class="team-role">${member.role}</div>
+          <div class="team-socials">
+            <a href="${member.linkedin}" class="team-social-link" target="_blank">in</a>
+          </div>
+        </div>
+      `).join('');
+    } catch (err) {
+      console.error("Failed to load team data:", err);
+    }
+  }
+
+  // Load Partners if on the events page
+  const instContainer = document.getElementById('institutes-logos-container');
+  const platContainer = document.getElementById('platforms-logos-container');
+  if (instContainer && platContainer) {
+    try {
+      const response = await fetch('data/partners.json');
+      const data = await response.json();
+      
+      instContainer.innerHTML = data.institutes.map(p => `
+        <div class="partner-logo-box" style="height: 60px; display: flex; align-items: center; justify-content: center;">
+          <img src="${p.src}" alt="${p.name} Logo" style="height: ${p.height}; width: ${p.width}; transition: all 0.3s ease;" class="partner-logo" loading="lazy" width="${p.width.replace('px','')}" height="${p.height.replace('px','')}">
+        </div>
+      `).join('');
+
+      platContainer.innerHTML = data.platforms.map(p => {
+        if (p.type === 'svg') {
+          return `
+            <div class="partner-logo-box" style="height: 60px; display: flex; align-items: center; justify-content: center;">
+              ${p.svg}
+            </div>
+          `;
+        } else {
+          return `
+            <div class="partner-logo-box" style="height: 60px; display: flex; align-items: center; justify-content: center;">
+              <img src="${p.src}" alt="${p.name} Logo" style="height: ${p.height}; width: ${p.width}; transition: all 0.3s ease;" class="partner-logo" loading="lazy" width="${p.width.replace('px','')}" height="${p.height.replace('px','')}">
+            </div>
+          `;
+        }
+      }).join('');
+    } catch (err) {
+      console.error("Failed to load partners data:", err);
+    }
+  }
+
+  // Load Previous Casebooks if on the casebook page
+  const casebooksGrid = document.getElementById('previous-casebooks-grid');
+  if (casebooksGrid) {
+    try {
+      const response = await fetch('../data/casebooks.json');
+      const data = await response.json();
+      casebooksGrid.innerHTML = data.map(c => `
+        <div class="glass-card" style="padding: 2.5rem; border: 1px solid rgba(0, 229, 255, 0.08); text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+          <div style="width: ${c.width}px; height: ${c.height}px; margin-bottom: 1.5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.4); border-radius: 4px; overflow: hidden; transition: transform 0.3s ease;" class="cover-hover">
+            <img src="${c.cover}" alt="${c.title} Cover" style="width: 100%; height: 100%; object-fit: fill;" loading="lazy" width="${c.width}" height="${c.height}">
+          </div>
+          <h4 style="font-family: var(--font-header); font-size: 1.25rem; color: var(--text-primary); margin-bottom: 0.5rem;">${c.title}</h4>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">${c.description}</p>
+          <div style="display: flex; gap: 0.75rem; justify-content: center; width: 100%;">
+            <a href="${c.pdf}" download="${c.pdf.split('/').pop()}" class="btn btn-primary" style="padding: 0.6rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.3rem;">
+              <svg style="width:14px; height:14px; fill:currentColor;" viewBox="0 0 24 24"><path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/></svg>
+              Download
+            </a>
+            <a href="${c.pdf}" target="_blank" class="btn btn-secondary" style="padding: 0.6rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.3rem;">
+              <svg style="width:14px; height:14px; fill:currentColor;" viewBox="0 0 24 24"><path d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"/></svg>
+              View
+            </a>
+          </div>
+        </div>
+      `).join('');
+    } catch (err) {
+      console.error("Failed to load casebooks data:", err);
+    }
+  }
+
+  // Load Previous Reports if on the APEX page
+  const reportsGrid = document.getElementById('previous-reports-grid');
+  if (reportsGrid) {
+    try {
+      const response = await fetch('../data/reports.json');
+      const data = await response.json();
+      reportsGrid.innerHTML = data.map(r => `
+        <div class="glass-card" style="padding: 2.5rem; border: 1px solid rgba(0, 229, 255, 0.08); text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+          <div style="width: ${r.width}px; height: ${r.height}px; margin-bottom: 1.5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.4); border-radius: 4px; overflow: hidden; transition: transform 0.3s ease;" class="cover-hover">
+            <img src="${r.cover}" alt="${r.title} Cover" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy" width="${r.width}" height="${r.height}">
+          </div>
+          <h4 style="font-family: var(--font-header); font-size: 1.25rem; color: var(--text-primary); margin-bottom: 0.5rem;">${r.title}</h4>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">${r.description}</p>
+          <div style="display: flex; gap: 0.75rem; justify-content: center; width: 100%;">
+            <a href="${r.pdf}" download="${r.pdf.split('/').pop()}" class="btn btn-primary" style="padding: 0.6rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.3rem;">
+              <svg style="width:14px; height:14px; fill:currentColor;" viewBox="0 0 24 24"><path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/></svg>
+              Download
+            </a>
+            <a href="${r.pdf}" target="_blank" class="btn btn-secondary" style="padding: 0.6rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.3rem;">
+              <svg style="width:14px; height:14px; fill:currentColor;" viewBox="0 0 24 24"><path d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"/></svg>
+              View
+            </a>
+          </div>
+        </div>
+      `).join('');
+    } catch (err) {
+      console.error("Failed to load reports data:", err);
+    }
+  }
+}
+
 // Initial UI triggers
 document.addEventListener('DOMContentLoaded', () => {
   highlightNav();
   renderActiveStep();
   // Open the Casebook vertical details by default in the temple inspector
   inspectVertical('casebook');
+  loadDynamicContent();
 });
 
 // Mobile Collapsible Toggles

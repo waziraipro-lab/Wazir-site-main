@@ -2937,3 +2937,68 @@ p {
   }
 }
 
+/* Cross-Document View Transitions */
+@view-transition {
+  navigation: auto;
+}
+
+/* Form Spinner Micro-interactions */
+.btn-spinner {
+  display: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spinLoader 0.8s linear infinite;
+  margin-right: 0.5rem;
+  box-sizing: border-box;
+}
+
+.btn-loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.btn-loading .btn-spinner {
+  display: inline-block;
+}
+
+.btn-loading svg {
+  display: none !important;
+}
+
+@keyframes spinLoader {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Simulator transition visual enhancements */
+.sim-choices-grid {
+  transition: all 0.3s ease;
+}
+
+.sim-choice-btn {
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+}
+
+.sim-choice-btn:active {
+  transform: scale(0.98);
+}
+
+.sim-feedback-box {
+  animation: slideDownFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

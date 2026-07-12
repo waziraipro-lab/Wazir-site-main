@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Casebook 3.0",
+    "description": "Our 3rd edition focusing on FMCG supply chain and retail metrics.",
+    "cover": "Casebook_3.0_Cover.webp",
+    "pdf": "../Wazir_Casebook_3.0.pdf",
+    "width": 220,
+    "height": 124
+  },
+  {
+    "title": "Casebook 2.0",
+    "description": "Our 2nd edition detailing guest lecture transcripts and interview Prep.",
+    "cover": "Casebook_2.0_Cover.webp",
+    "pdf": "../Wazir_Casebook_2.0.pdf",
+    "width": 220,
+    "height": 124
+  },
+  {
+    "title": "Casebook 1.0",
+    "description": "The inaugural edition introducing basic structural MECE trees.",
+    "cover": "Casebook_1.0_Cover.webp",
+    "pdf": "../Wazir_Casebook_1.0.pdf",
+    "width": 220,
+    "height": 124
+  }
+]
