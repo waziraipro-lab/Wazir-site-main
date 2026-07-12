@@ -12,14 +12,14 @@
       "type": "image",
       "src": "images/iim_k.png",
       "height": "58px",
-      "width": "58px"
+      "width": "56px"
     },
     {
       "name": "IIM Raipur",
       "type": "image",
       "src": "images/iim_raipur.png",
       "height": "58px",
-      "width": "58px"
+      "width": "57px"
     }
   ],
   "platforms": [
@@ -33,28 +33,28 @@
       "type": "image",
       "src": "images/the_product_folks.png",
       "height": "52px",
-      "width": "160px"
+      "width": "102px"
     },
     {
       "name": "Skilled Sapiens",
       "type": "image",
       "src": "images/skilled_sapiens.png",
       "height": "52px",
-      "width": "160px"
+      "width": "52px"
     },
     {
       "name": "Miduty",
       "type": "image",
       "src": "images/miduty.png",
       "height": "50px",
-      "width": "150px"
+      "width": "140px"
     },
     {
       "name": "Swiggy",
       "type": "image",
       "src": "images/swiggy.svg",
       "height": "50px",
-      "width": "150px"
+      "width": "50px"
     },
     {
       "name": "Investics",

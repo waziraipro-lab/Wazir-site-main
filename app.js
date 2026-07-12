@@ -920,7 +920,7 @@ async function loadDynamicContent() {
       
       instContainer.innerHTML = data.institutes.map(p => `
         <div class="partner-logo-box" style="height: 60px; display: flex; align-items: center; justify-content: center;">
-          <img src="${p.src}" alt="${p.name} Logo" style="height: ${p.height}; width: ${p.width}; transition: all 0.3s ease;" class="partner-logo" loading="lazy" width="${p.width.replace('px','')}" height="${p.height.replace('px','')}">
+          <img src="${p.src}" alt="${p.name} Logo" style="height: ${p.height}; width: auto; object-fit: contain; transition: all 0.3s ease;" class="partner-logo" loading="lazy" width="${p.width.replace('px','')}" height="${p.height.replace('px','')}">
         </div>
       `).join('');
 
@@ -934,7 +934,7 @@ async function loadDynamicContent() {
         } else {
           return `
             <div class="partner-logo-box" style="height: 60px; display: flex; align-items: center; justify-content: center;">
-              <img src="${p.src}" alt="${p.name} Logo" style="height: ${p.height}; width: ${p.width}; transition: all 0.3s ease;" class="partner-logo" loading="lazy" width="${p.width.replace('px','')}" height="${p.height.replace('px','')}">
+              <img src="${p.src}" alt="${p.name} Logo" style="height: ${p.height}; width: auto; object-fit: contain; transition: all 0.3s ease;" class="partner-logo" loading="lazy" width="${p.width.replace('px','')}" height="${p.height.replace('px','')}">
             </div>
           `;
         }
